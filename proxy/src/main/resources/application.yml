@@ -1,0 +1,62 @@
+# GLOBAL CONFIGURATION
+spring:
+    # if you want to set a different profile
+    # use environment variable:
+    #
+    # SPRING_PROFILES_ACTIVE=docker
+    profiles.active: local
+    application.name: Zuul
+
+# zuul proxy always exposes 8080 
+server.port: 8080
+
+# zuul routes
+zuul:
+  ignoredServices: '*'
+  prefix: /api
+  routes:
+    # routes for service 'clientes'
+    clientes-api-docs:
+      strip-prefix: true
+      path: /clientes/**
+      serviceId: Clientes
+    clientes:
+      strip-prefix: false
+      path: /v1/clientes/**
+      serviceId: Clientes
+    # routes for service 'filmes'
+    filmes-api-docs:
+      strip-prefix: true
+      path: /filmes/**
+      serviceId: Filmes
+    filmes:
+      strip-prefix: false
+      path: /v1/filmes/**
+      serviceId: Filmes
+
+---
+# LOCAL CONFIGURATION
+spring:
+    profiles: local
+      
+      
+eureka.client:
+    # in local mode you have to run your service 
+    # discovery on localhost (you also can run the 
+    # cloud infrastructure on your local docker host)
+    serviceUrl.defaultZone: http://localhost:8761/eureka/
+    # fetch all 5 seconds the delta from the service registry
+    registry-fetch-interval-seconds: 5
+      
+---
+# DOCKER CONFIGURATION
+spring:
+    profiles: docker
+    
+
+eureka.client:
+    # the hostname of your eureka server should be 'discovery'
+    serviceUrl.defaultZone: http://discovery:8761/eureka/
+    # fetch all 5 seconds the delta from the service registry
+    registry-fetch-interval-seconds: 5
+

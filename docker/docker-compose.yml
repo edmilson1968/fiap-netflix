@@ -1,0 +1,80 @@
+version: '2'
+
+services:
+  # --------------
+  # database
+  # --------------
+  mysql:
+    image: mysql:5.7
+    command: --default-authentication-plugin=mysql_native_password
+    ports:
+      - "3306:3306"
+    volumes:
+      - $PWD/data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_USER: netflixusr
+      MYSQL_PASSWORD: netflix123
+      MYSQL_DATABASE: netflix
+
+  # --------------
+  # phpadmin
+  # --------------
+  phpadmin:
+    image: phpmyadmin/phpmyadmin
+    links:
+      - mysql:db
+    ports:
+      - "8081:80"
+
+  # --------------
+  # registry
+  # --------------
+  discovery:
+    build: ../registry/target
+    ports:
+      - "8761:8761"
+    hostname: discovery
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+
+  # --------------
+  # zuul proxy
+  # --------------
+  zuul:
+    build: ../proxy/target
+    ports:
+      - "80:8080"
+    hostname: zuul
+    links:
+      - discovery
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+
+  # --------------
+  # clientes
+  # --------------
+  clientes:
+    build: ../clientes/target
+    ports:
+      - "8080"
+    hostname: clientes
+    links:
+      - discovery
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+
+  # --------------
+  # filmes
+  # --------------
+  filmes:
+    build: ../filmes/target
+    ports:
+      - "8080"
+    hostname: filmes
+    links:
+      - discovery
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+
+
