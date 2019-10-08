@@ -1,0 +1,8 @@
+- Possibilidade de visualizar os filmes de um determinado gênero;
+- Possibilidade de visualizar os detalhes de cada filme;
+- Possibilidade de votar nos filmes que mais gostei;
+- Possibilidade de marcar um filme ou série para ser visto no futuro;
+- Possibilidade de buscar um filme por palavra-chave;
+- Possibilidade de exibir os filmes mais vistos por categorias;
+- Possibilidade de abrir um chamado técnico de algum problema que está acontecendo;
+- Possibilidade de visualizar os filmes e séries que já foram assistidos;
