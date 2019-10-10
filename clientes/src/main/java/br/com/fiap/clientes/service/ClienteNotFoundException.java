@@ -1,4 +1,4 @@
-package br.com.fiap.clientes.service;
+package br.com.fiap.servicos.service;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

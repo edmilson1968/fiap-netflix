@@ -1,7 +1,7 @@
-package br.com.fiap.clientes.service;
+package br.com.fiap.servicos.service;
 
-import br.com.fiap.clientes.model.Cliente;
-import br.com.fiap.clientes.repository.ClienteRepository;
+import br.com.fiap.servicos.model.Cliente;
+import br.com.fiap.servicos.repository.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
