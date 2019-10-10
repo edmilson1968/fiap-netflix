@@ -1,4 +1,4 @@
-package br.com.fiap.servicos.repository;
+package br.com.fiap.clientes.repository;
 
 import java.util.Date;
 

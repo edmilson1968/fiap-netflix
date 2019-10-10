@@ -1,4 +1,4 @@
-package br.com.fiap.servicos.model;
+package br.com.fiap.clientes.model;
 
 import io.swagger.annotations.ApiModel;
 

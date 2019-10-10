@@ -1,7 +1,7 @@
-package br.com.fiap.servicos.controller;
+package br.com.fiap.clientes.controller;
 
-import br.com.fiap.servicos.model.Cliente;
-import br.com.fiap.servicos.service.ClienteService;
+import br.com.fiap.clientes.model.Cliente;
+import br.com.fiap.clientes.service.ClienteService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

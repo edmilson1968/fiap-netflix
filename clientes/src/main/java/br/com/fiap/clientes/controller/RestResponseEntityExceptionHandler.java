@@ -1,7 +1,7 @@
-package br.com.fiap.servicos.controller;
+package br.com.fiap.clientes.controller;
 
-import br.com.fiap.servicos.repository.ErrorDetails;
-import br.com.fiap.servicos.service.ClienteNotFoundException;
+import br.com.fiap.clientes.repository.ErrorDetails;
+import br.com.fiap.clientes.service.ClienteNotFoundException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

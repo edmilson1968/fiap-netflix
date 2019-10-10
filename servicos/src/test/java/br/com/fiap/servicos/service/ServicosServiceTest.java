@@ -2,6 +2,8 @@ package br.com.fiap.servicos.service;
 
 import br.com.fiap.servicos.model.Cliente;
 import br.com.fiap.servicos.repository.ServicosRepository;
+import br.com.fiap.servicos.service.ServicoNotFoundException;
+import br.com.fiap.servicos.service.ServicosService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

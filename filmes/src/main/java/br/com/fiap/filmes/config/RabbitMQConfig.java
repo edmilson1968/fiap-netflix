@@ -1,6 +1,6 @@
 package br.com.fiap.filmes.config;
 
-import br.com.fiap.clientes.amqp.Receiver;
+import br.com.fiap.filmes.amqp.Receiver;
 import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.rabbit.config.SimpleRabbitListenerContainerFactory;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;

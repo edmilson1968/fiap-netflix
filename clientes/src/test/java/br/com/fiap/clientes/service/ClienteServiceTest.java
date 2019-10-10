@@ -2,6 +2,8 @@ package br.com.fiap.clientes.service;
 
 import br.com.fiap.clientes.model.Cliente;
 import br.com.fiap.clientes.repository.ClienteRepository;
+import br.com.fiap.clientes.service.ClienteNotFoundException;
+import br.com.fiap.clientes.service.ClienteService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,7 +22,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
-import static org.springframework.test.util.AssertionErrors.assertEquals;
 
 @RunWith(SpringRunner.class)
 public class ClienteServiceTest {
