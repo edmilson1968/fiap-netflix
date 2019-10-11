@@ -38,8 +38,32 @@ public class FilmeServiceTest {
     @Before()
     public void setup() {
         fil1 = new Filme(1L, "Back To The Future", 1984, "ficção", "ingles", "filme");
+        fil1.setDetalhe(
+                "Old education him departure any arranging one prevailed. " +
+                        "Their end whole might began her. Behaved the comfort another fifteen eat. " +
+                        "Partiality had his themselves ask pianoforte increasing discovered. So mr delay " +
+                        "at since place whole above miles. He to observe conduct at detract because. " +
+                        "Way ham unwilling not breakfast furniture explained perpetual. " +
+                        "Or mr surrounded conviction so astonished literature. Songs to an blush woman " +
+                        "be sorry young. We certain as removal attempt.");
+
         fil2 = new Filme(2L, "Stranger Things", 2017, "ficção", "ingles", "serie");
+        fil2.setDetalhe(
+                "Now led tedious shy lasting females off. Dashwood marianne in of entrance " +
+                        "be on wondered possible building. Wondered sociable he carriage in speedily margaret. " +
+                        "Up devonshire of he thoroughly insensible alteration. An mr settling occasion insisted " +
+                        "distance ladyship so. Not attention say frankness intention out dashwoods now curiosity. " +
+                        "Stronger ecstatic as no judgment daughter speedily thoughts. Worse downs nor might she " +
+                        "court did nay forth these.");
+
         fil3 = new Filme(3L, "The Wall", 1975, "documentario", "ingles", "filme");
+        fil3.setDetalhe(
+                "Projecting surrounded literature yet delightful alteration but bed men. " +
+                        "Open are from long why cold. If must snug by upon sang loud left. " +
+                        "As me do preference entreaties compliment motionless ye literature. " +
+                        "Day behaviour explained law remainder. Produce can cousins account you pasture. " +
+                        "Peculiar delicate an pleasant provided do perceive.");
+
 
         filmes = Arrays.asList(fil1, fil2);
     }
