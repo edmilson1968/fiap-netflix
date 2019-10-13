@@ -28,6 +28,17 @@ services:
       - "8081:80"
 
   # --------------
+  # rabbitmq
+  # --------------
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - "15672:15672"
+      - "5672"
+      - "25672"
+    hostname: rabbitmq
+
+  # --------------
   # registry
   # --------------
   discovery:
@@ -77,4 +88,16 @@ services:
     environment:
       - SPRING_PROFILES_ACTIVE=docker
 
+  # --------------
+  # servicos
+  # --------------
+  servicos:
+    build: ../servicos/target
+    ports:
+      - "8080"
+    hostname: servicos
+    links:
+      - discovery
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
 
