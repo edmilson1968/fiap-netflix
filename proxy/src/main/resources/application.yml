@@ -33,6 +33,15 @@ zuul:
       strip-prefix: false
       path: /v1/filmes/**
       serviceId: Filmes
+    # routes for service 'servicos'
+    servicos-api-docs:
+      strip-prefix: true
+      path: /servicos/**
+      serviceId: Servicos
+    servicos:
+      strip-prefix: false
+      path: /v1/servicos/**
+      serviceId: Servicos
 
 ---
 # LOCAL CONFIGURATION
