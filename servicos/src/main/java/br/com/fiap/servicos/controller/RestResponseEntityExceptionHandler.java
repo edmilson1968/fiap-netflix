@@ -1,7 +1,7 @@
 package br.com.fiap.servicos.controller;
 
 import br.com.fiap.servicos.repository.ErrorDetails;
-import br.com.fiap.servicos.service.ServicoNotFoundException;
+import br.com.fiap.servicos.service.ChamadoNotFoundException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,8 +20,8 @@ import java.util.List;
 @ControllerAdvice
 public class RestResponseEntityExceptionHandler {
 
-    @ExceptionHandler(ServicoNotFoundException.class)
-    public final ResponseEntity<ErrorDetails> handleBotNotFoundException(ServicoNotFoundException ex,
+    @ExceptionHandler(ChamadoNotFoundException.class)
+    public final ResponseEntity<ErrorDetails> handleBotNotFoundException(ChamadoNotFoundException ex,
                                                                          WebRequest request) {
         ErrorDetails errorDetails = new ErrorDetails(new Date(), ex.getMessage(), request.getDescription(false));
         return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
