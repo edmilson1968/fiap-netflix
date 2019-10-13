@@ -1,5 +1,7 @@
 package br.com.fiap.clientes.controller;
 
+import br.com.fiap.clientes.client.ChamadoDiscoveryClient;
+import br.com.fiap.clientes.model.Chamado;
 import br.com.fiap.clientes.model.Cliente;
 import br.com.fiap.clientes.service.ClienteService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -24,6 +26,9 @@ public class ClienteController {
 
     @Autowired
     private ObjectMapper objectMapper;
+
+    @Autowired
+    private ChamadoDiscoveryClient chamadoDiscoveryClient;
 
     @GetMapping(produces = {MediaType.APPLICATION_JSON_VALUE} )
     @ApiOperation(value="busca todos os clientes")
@@ -58,5 +63,26 @@ public class ClienteController {
         } else {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
+    }
+
+    @PostMapping("/{id}/chamados")
+    @ApiOperation(value="abre um chamado para um cliente")
+    public ResponseEntity<Chamado> openTicketForCliente(@PathVariable final Long id, @RequestBody String chamado) {
+        Chamado aChamado = null;
+        Cliente cliente = clienteService.findById(id);
+
+        try {
+
+            aChamado = objectMapper.readValue(chamado, Chamado.class);
+            aChamado.setDataAbertura(null);
+            aChamado.setDataFechamento(null);
+            aChamado.setCliente(cliente.getId());
+
+            chamadoDiscoveryClient.openTicket(aChamado);
+            return new ResponseEntity<Chamado>(aChamado, HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
     }
 }
