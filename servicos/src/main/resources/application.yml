@@ -5,17 +5,7 @@ spring:
     #
     # SPRING_PROFILES_ACTIVE=docker
     profiles.active: local
-    application.name: Clientes
-
-    datasource:
-        username: netflixusr
-        password: netflix123
-        driver-class-name: com.mysql.cj.jdbc.Driver
-        url: jdbc:mysql://mysql:3306/netflix
-    jpa:
-        show-sql: true
-        hibernate:
-            ddl-auto: update
+    application.name: servicos
 
 eureka.instance:
     # send ip addresses to the discovery. this is
@@ -30,6 +20,22 @@ eureka.instance:
 spring:
     profiles: docker
 
+    datasource:
+        username: ${MYSQL_USER}
+        password: ${MYSQL_PASS}
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        url: ${MYSQL_URL}
+    jpa:
+        show-sql: true
+        hibernate:
+            ddl-auto: update
+
+    rabbitmq:
+        host: ${RABBITMQ_HOST}
+        port: ${RABBITMQ_PORT}
+        username: ${RABBITMQ_USERNAME}
+        password: ${RABBITMQ_PASSWORD}
+
 # inside a container, we can always map to 8080. Use your compose
 # file to expose a service on a different port.
 server.port: 8080
@@ -41,6 +47,7 @@ eureka.client.serviceUrl.defaultZone: http://discovery:8761/eureka/
 # LOCAL CONFIGURATION
 spring:
     profiles: local
+
     datasource:
         username: netflixusr
         password: netflix123
@@ -50,6 +57,13 @@ spring:
         show-sql: true
         hibernate:
             ddl-auto: update
+
+    rabbitmq:
+        host: localhost
+        port: 5672
+        username: netflixusr
+        password: netflix123
+
 # random server port to avoid port 
 # conflicts on localhost
 server.port: 0
