@@ -18,30 +18,30 @@ zuul:
     # routes for service 'clientes'
     clientes-api-docs:
       strip-prefix: true
-      path: /clientes/**
-      serviceId: Clientes
-    clientes:
+      path: /apidocs/v1/clientes/**
+      serviceId: clientes
+    clientes-v1:
       strip-prefix: false
       path: /v1/clientes/**
-      serviceId: Clientes
+      serviceId: clientes
     # routes for service 'filmes'
     filmes-api-docs:
       strip-prefix: true
-      path: /filmes/**
-      serviceId: Filmes
+      path: /apidocs/v1/filmes/**
+      serviceId: filmes
     filmes:
       strip-prefix: false
       path: /v1/filmes/**
-      serviceId: Filmes
+      serviceId: filmes
     # routes for service 'servicos'
     servicos-api-docs:
       strip-prefix: true
-      path: /servicos/**
-      serviceId: Servicos
+      path: /apidocs/v1/chamados/**
+      serviceId: servicos
     servicos:
       strip-prefix: false
-      path: /v1/servicos/**
-      serviceId: Servicos
+      path: /v1/chamados/**
+      serviceId: servicos
 
 ---
 # LOCAL CONFIGURATION
