@@ -4,6 +4,7 @@ import br.com.fiap.clientes.model.Chamado;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
@@ -14,18 +15,26 @@ import java.util.List;
 @Component
 public class ChamadoDiscoveryClient {
 
+
+    @Bean
+    public RestTemplate restTemplate() {
+        return new RestTemplate();
+    }
+
     @Autowired
     private DiscoveryClient discoveryClient;
 
+    @Autowired
+    RestTemplate restTemplate;
+
     public Chamado openTicket(Chamado chamado) {
-        RestTemplate restTemplate = new RestTemplate();
-        List<ServiceInstance> instances = discoveryClient.getInstances("Servicos");
+        List<ServiceInstance> instances = discoveryClient.getInstances("servicos");
 
         if (instances.size() == 0) {
             return null;
         }
 
-        String serviceUri = String.format("%s/v1/chamados/", instances.get(0).getUri().toString());
+        String serviceUri = String.format("%s/v1/chamados", instances.get(0).getUri().toString());
 
         ResponseEntity<Chamado> restExchange =
                 restTemplate.postForEntity(serviceUri, chamado, Chamado.class);
