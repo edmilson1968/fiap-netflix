@@ -12,10 +12,10 @@ services:
     volumes:
       - $PWD/data:/var/lib/mysql
     environment:
-      MYSQL_ROOT_PASSWORD: rootpass
-      MYSQL_USER: netflixusr
-      MYSQL_PASSWORD: netflix123
-      MYSQL_DATABASE: netflix
+        MYSQL_ROOT_PASSWORD: rootpass
+        MYSQL_USER: netflixusr
+        MYSQL_PASSWORD: netflix123
+        MYSQL_DATABASE: netflix
 
   # --------------
   # phpadmin
@@ -34,9 +34,12 @@ services:
     image: rabbitmq:3-management
     ports:
       - "15672:15672"
-      - "5672"
+      - "5672:5672"
       - "25672"
     hostname: rabbitmq
+    environment:
+        RABBITMQ_DEFAULT_USER: netflixusr
+        RABBITMQ_DEFAULT_PASS: netflix123
 
   # --------------
   # registry
@@ -47,7 +50,7 @@ services:
       - "8761:8761"
     hostname: discovery
     environment:
-      - SPRING_PROFILES_ACTIVE=docker
+        SPRING_PROFILES_ACTIVE: docker
 
   # --------------
   # zuul proxy
@@ -60,7 +63,7 @@ services:
     links:
       - discovery
     environment:
-      - SPRING_PROFILES_ACTIVE=docker
+        SPRING_PROFILES_ACTIVE: docker
 
   # --------------
   # clientes
@@ -72,8 +75,16 @@ services:
     hostname: clientes
     links:
       - discovery
+      - rabbitmq
     environment:
-      - SPRING_PROFILES_ACTIVE=docker
+        SPRING_PROFILES_ACTIVE: docker
+        MYSQL_URL: "jdbc:mysql://mysql:3306/netflix"
+        MYSQL_USER: netflixusr
+        MYSQL_PASS: netflix123
+        RABBITMQ_HOST: rabbitmq
+        RABBITMQ_PORT: 5672
+        RABBITMQ_USERNAME: netflixusr
+        RABBITMQ_PASSWORD: netflix123
 
   # --------------
   # filmes
@@ -85,8 +96,16 @@ services:
     hostname: filmes
     links:
       - discovery
+      - rabbitmq
     environment:
-      - SPRING_PROFILES_ACTIVE=docker
+        SPRING_PROFILES_ACTIVE: docker
+        MYSQL_URL: "jdbc:mysql://mysql:3306/netflix"
+        MYSQL_USER: netflixusr
+        MYSQL_PASS: netflix123
+        RABBITMQ_HOST: rabbitmq
+        RABBITMQ_PORT: 5672
+        RABBITMQ_USERNAME: netflixusr
+        RABBITMQ_PASSWORD: netflix123
 
   # --------------
   # servicos
@@ -98,6 +117,14 @@ services:
     hostname: servicos
     links:
       - discovery
+      - rabbitmq
     environment:
-      - SPRING_PROFILES_ACTIVE=docker
+        SPRING_PROFILES_ACTIVE: docker
+        MYSQL_URL: "jdbc:mysql://mysql:3306/netflix"
+        MYSQL_USER: netflixusr
+        MYSQL_PASS: netflix123
+        RABBITMQ_HOST: rabbitmq
+        RABBITMQ_PORT: 5672
+        RABBITMQ_USERNAME: netflixusr
+        RABBITMQ_PASSWORD: netflix123
 
