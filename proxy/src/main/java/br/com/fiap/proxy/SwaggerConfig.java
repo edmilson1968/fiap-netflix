@@ -2,6 +2,7 @@ package br.com.fiap.proxy;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.netflix.zuul.filters.RouteLocator;
+import org.springframework.cloud.netflix.zuul.filters.discovery.PatternServiceRouteMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -24,6 +25,13 @@ public class SwaggerConfig implements SwaggerResourcesProvider {
     @Autowired
     RouteLocator routeLocator;
 
+//    @Bean
+//    public PatternServiceRouteMapper serviceRouteMapper() {
+//        return new PatternServiceRouteMapper(
+//                "(?<name>^.+)-(?<version>v.+$)",
+//                "${version}/${name}");
+//    }
+
     @Bean
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
@@ -40,17 +48,18 @@ public class SwaggerConfig implements SwaggerResourcesProvider {
         resources.add(swaggerResource("zuul-gateway","/v2/api-docs","1.0"));
         //Recycling Lambda expressions to simplify code
         routeLocator.getRoutes().forEach(route -> {
+            String name = route.getId();
+            final String fullPath = route.getFullPath();
+            String location = fullPath;//.replace("/api/apidocs", "/apidocs");
+            location = location.replace("**", "v2/api-docs");
             //Dynamic acquisition
-            if (route.getId().endsWith("-api-docs"))
+            if (route.getId().endsWith("-api-docs")) {
                 resources.add(
-                    swaggerResource(
-                        route.getId(),
-
-                        //"/api-docs/v1/" + route.getId(),
-                            route.getFullPath().replace("**", "v2/api-docs"),
-                        "1.0"
-                    )
+                        swaggerResource(
+                                name, location, "1.0"
+                        )
                 );
+            }
         });
         //You can also directly inherit the Consumer interface
 //		routeLocator.getRoutes().forEach(new Consumer<Route>() {
