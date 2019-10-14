@@ -78,7 +78,7 @@ public class ClienteController {
             aChamado.setDataFechamento(null);
             aChamado.setCliente(cliente.getId());
 
-            chamadoDiscoveryClient.openTicket(aChamado);
+            aChamado = chamadoDiscoveryClient.openTicket(aChamado);
             return new ResponseEntity<Chamado>(aChamado, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
