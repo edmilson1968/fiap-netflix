@@ -25,6 +25,9 @@ services:
       - "5672"
       - "25672"
     hostname: rabbitmq
+    environment:
+      - RABBITMQ_DEFAULT_USER=netflixusr
+      - RABBITMQ_DEFAULT_PASS=netflix123
 
   # --------------
   # registry
@@ -57,6 +60,7 @@ services:
       - "8080"
     links:
       - discovery
+      - rabbitmq
     environment:
       - SPRING_PROFILES_ACTIVE=docker
 
@@ -69,6 +73,7 @@ services:
       - "8080"
     links:
       - discovery
+      - rabbitmq
     environment:
       - SPRING_PROFILES_ACTIVE=docker
 
@@ -81,6 +86,7 @@ services:
       - "8080"
     links:
       - discovery
+      - rabbitmq
     environment:
       - SPRING_PROFILES_ACTIVE=docker
 
