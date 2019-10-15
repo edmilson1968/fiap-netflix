@@ -1,6 +1,9 @@
 package br.com.fiap.filmes.config;
 
 import br.com.fiap.filmes.amqp.Receiver;
+import org.springframework.amqp.core.Binding;
+import org.springframework.amqp.core.BindingBuilder;
+import org.springframework.amqp.core.Exchange;
 import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.rabbit.config.SimpleRabbitListenerContainerFactory;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
@@ -13,7 +16,7 @@ public class RabbitMQConfig {
 
     @Bean
     public Queue getEventTopic() {
-        return new Queue("events");
+        return new Queue("filmes_events_queue");
     }
 
     @Bean
@@ -33,4 +36,8 @@ public class RabbitMQConfig {
         return new Receiver();
     }
 
+    @Bean
+    public Binding binding1(final Queue queue1, final Exchange fanoutExchange) {
+        return BindingBuilder.bind(queue1).to(fanoutExchange).with("filmes.events.*").noargs();
+    }
 }

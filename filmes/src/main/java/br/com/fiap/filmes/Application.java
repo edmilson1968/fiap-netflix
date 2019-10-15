@@ -1,8 +1,13 @@
 package br.com.fiap.filmes;
 
+import org.springframework.amqp.core.Exchange;
+import org.springframework.amqp.core.FanoutExchange;
+import org.springframework.amqp.core.TopicExchange;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
+import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -26,5 +31,9 @@ public class Application {
         return "Hello from service 'filmes'.";
     }
 
+    @Bean
+    public Exchange fanoutExchange(@Value("${fanout.exchange.name}") final String exchangeName) {
+        return new FanoutExchange(exchangeName);
+    }
 }
 
