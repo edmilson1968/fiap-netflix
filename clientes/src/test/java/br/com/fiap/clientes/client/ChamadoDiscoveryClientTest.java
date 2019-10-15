@@ -50,12 +50,12 @@ public class ChamadoDiscoveryClientTest {
         tkt1.setId(UUID.randomUUID());
 
 
-        java.net.URI uri = URI.create("/servicos/v1/chamados");
+        java.net.URI uri = URI.create("/v1/chamados");
         ServiceInstance instance = mock(ServiceInstance.class);
 
         when(instance.getUri()).thenReturn(uri);
         List<ServiceInstance> instances = Arrays.asList(instance);
-        when(discoveryClient.getInstances("Servicos")).thenReturn(instances);
+        when(discoveryClient.getInstances("servicos")).thenReturn(instances);
         when(restTemplate.postForEntity(anyString(), any(Chamado.class), eq(Chamado.class)))
                 .thenReturn(new ResponseEntity<Chamado>(tkt1, HttpStatus.CREATED));
 
@@ -68,7 +68,7 @@ public class ChamadoDiscoveryClientTest {
         assertThat(tkt1.getDescricao()).isEqualTo(resp.getDescricao());
         assertThat(tkt1.getMotivo()).isEqualTo(resp.getMotivo());
 
-        verify(discoveryClient, times(1)).getInstances("Servicos");
+        verify(discoveryClient, times(1)).getInstances("servicos");
         verify(restTemplate, times(1)).postForEntity(anyString(), any(Chamado.class), eq(Chamado.class));
     }
 
