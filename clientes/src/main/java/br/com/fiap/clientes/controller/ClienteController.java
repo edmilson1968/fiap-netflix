@@ -1,8 +1,6 @@
 package br.com.fiap.clientes.controller;
 
-import br.com.fiap.clientes.amqp.SendAssistirMessage;
 import br.com.fiap.clientes.client.ChamadoDiscoveryClient;
-import br.com.fiap.clientes.model.Assistir;
 import br.com.fiap.clientes.model.Chamado;
 import br.com.fiap.clientes.model.Cliente;
 import br.com.fiap.clientes.service.ClienteService;
@@ -84,27 +82,6 @@ public class ClienteController {
 
             aChamado = chamadoDiscoveryClient.openTicket(aChamado);
             return new ResponseEntity<Chamado>(aChamado, HttpStatus.CREATED);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-    }
-
-    @Autowired
-    SendAssistirMessage sendAssistirMessage;
-
-    @PostMapping("/{id}/assistir")
-    @ApiOperation(value = "marca um filme para assistir")
-    public ResponseEntity<Assistir> flagToWatch ( @PathVariable final Long id, @RequestBody String watch){
-        Assistir awatch = null;
-        Cliente cliente = clienteService.findById(id);
-
-        try {
-
-            awatch = objectMapper.readValue(watch, Assistir.class);
-
-
-            awatch = sendAssistirMessage.sendMessage(awatch);
-            return new ResponseEntity<Assistir>(awatch, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }

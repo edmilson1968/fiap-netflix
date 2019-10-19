@@ -28,14 +28,4 @@ public class LikesController {
         }
     }
 
-    @DeleteMapping
-    public ResponseEntity<FilmeClienteLikes> desmarcar(@RequestBody FilmeClienteLikes body) {
-        FilmeClienteLikes like = null;
-        try {
-            likesService.desmarcar(body.getClienteId(), body.getFilmeId());
-            return new ResponseEntity<>(HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
 }

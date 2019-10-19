@@ -18,6 +18,8 @@ public class Filme {
     private String tipo; //filme | serie
     @Column(columnDefinition = "integer default 0")
     private Integer likes;
+    @Column(columnDefinition = "integer default 0")
+    private Integer assistido;
 
     @Column(columnDefinition = "TEXT", length=1024)
     private String detalhe;
@@ -88,12 +90,20 @@ public class Filme {
         return this.detalhe;
     }
 
+    public Integer getLikes() {
+        return likes;
+    }
+
     public void setLikes(Integer likes) {
         this.likes = likes;
     }
 
-    public Integer getLikes() {
-        return likes;
+    public Integer getAssistido() {
+        return assistido;
+    }
+
+    public void setAssistido(Integer assistido) {
+        this.assistido = assistido;
     }
 
     @Override

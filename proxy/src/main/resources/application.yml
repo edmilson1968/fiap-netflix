@@ -46,6 +46,10 @@ zuul:
       strip-prefix: false
       path: /v1/likes/**
       serviceId: servicos
+    assistidos:
+      strip-prefix: false
+      path: /v1/assistidos/**
+      serviceId: servicos
 
 ---
 # LOCAL CONFIGURATION

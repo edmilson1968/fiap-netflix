@@ -1,11 +1,13 @@
 package br.com.fiap.servicos.service;
 
+import br.com.fiap.servicos.amqp.SendMessage;
 import br.com.fiap.servicos.client.ClienteDiscoveryClient;
 import br.com.fiap.servicos.client.FilmeDiscoveryClient;
 import br.com.fiap.servicos.model.Cliente;
 import br.com.fiap.servicos.model.Filme;
 import br.com.fiap.servicos.model.FilmeClienteLikes;
 import br.com.fiap.servicos.repository.LikesRepository;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -32,6 +34,9 @@ public class LikesServiceTest {
     @Mock
     ClienteDiscoveryClient clienteDiscoveryClient;
 
+    @Mock
+    SendMessage sendLikeMessage;
+
     FilmeClienteLikes filmeClienteLikes;
 
     Filme fil1;
@@ -54,11 +59,17 @@ public class LikesServiceTest {
     }
 
     @Test
-    public void shouldGiveALikeToAMovie() {
+    public void shouldGiveALikeToAMovie() throws JsonProcessingException {
         when(clienteDiscoveryClient.findClienteById(anyLong())).thenReturn(cli1);
         when(filmeDiscoveryClient.findFilmeById(anyLong())).thenReturn(fil1);
         when(likesRepository.save(any(FilmeClienteLikes.class)))
                 .thenAnswer(i -> {filmeClienteLikes.setId(1L); return filmeClienteLikes;});
+        when(likesRepository.existsByClienteIdAndFilmeId(anyLong(), anyLong())).thenReturn(false);
+        when(likesRepository.findByClienteIdAndFilmeId(anyLong(), anyLong())).thenReturn(filmeClienteLikes);
+        doNothing().when(likesRepository).deleteById(anyLong());
+        doNothing().when(sendLikeMessage).sendLikeMessage(anyLong(), anyInt());
+
+
         FilmeClienteLikes res = null;
         try {
             res = likesService.marcar(cli1.getId(), fil1.getId());
@@ -72,12 +83,25 @@ public class LikesServiceTest {
 
 
     @Test
-    public void shouldRemoveALikeToAMovie() {
+    public void shouldRemoveALikeToAMovie() throws JsonProcessingException {
         when(clienteDiscoveryClient.findClienteById(anyLong())).thenReturn(cli1);
         when(filmeDiscoveryClient.findFilmeById(anyLong())).thenReturn(fil1);
-        doNothing().when(likesRepository).delete(any(FilmeClienteLikes.class));
-        likesService.desmarcar(cli1.getId(), fil1.getId());
-        //assertThat(res).hasNoNullFieldsOrProperties();
+        when(likesRepository.save(any(FilmeClienteLikes.class)))
+                .thenAnswer(i -> {filmeClienteLikes.setId(1L); return filmeClienteLikes;});
+        when(likesRepository.existsByClienteIdAndFilmeId(anyLong(), anyLong())).thenReturn(true);
+        when(likesRepository.findByClienteIdAndFilmeId(anyLong(), anyLong())).thenReturn(filmeClienteLikes);
+        doNothing().when(likesRepository).deleteById(anyLong());
+        doNothing().when(sendLikeMessage).sendLikeMessage(anyLong(), anyInt());
+
+
+        FilmeClienteLikes res = null;
+        try {
+            res = likesService.marcar(cli1.getId(), fil1.getId());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        assertThat(res.getClienteId()).isEqualTo(cli1.getId());
+        assertThat(res.getFilmeId()).isEqualTo(fil1.getId());
     }
 
 }

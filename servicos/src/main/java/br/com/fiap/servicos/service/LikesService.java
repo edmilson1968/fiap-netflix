@@ -1,6 +1,6 @@
 package br.com.fiap.servicos.service;
 
-import br.com.fiap.servicos.amqp.SendLikeMessage;
+import br.com.fiap.servicos.amqp.SendMessage;
 import br.com.fiap.servicos.client.ClienteDiscoveryClient;
 import br.com.fiap.servicos.client.FilmeDiscoveryClient;
 import br.com.fiap.servicos.model.Cliente;
@@ -23,7 +23,7 @@ public class LikesService {
     private ClienteDiscoveryClient clienteDiscoveryClient;
 
     @Autowired
-    private SendLikeMessage sendLikeMessage;
+    private SendMessage sendLikeMessage;
 
     public FilmeClienteLikes marcar(long clienteId, long filmeId) throws Exception {
         Cliente cliente = clienteDiscoveryClient.findClienteById(clienteId);
@@ -34,18 +34,12 @@ public class LikesService {
         if (likesRepository.existsByClienteIdAndFilmeId(clienteId, filmeId)) {
             filmesalvo = likesRepository.findByClienteIdAndFilmeId(clienteId, filmeId);
             likesRepository.deleteById(filmesalvo.getId());
-            sendLikeMessage.sendMessage(filmeId, -1);
+            sendLikeMessage.sendLikeMessage(filmeId, -1);
         } else {
             filmesalvo = likesRepository.save(filmeClienteLikes);
-            sendLikeMessage.sendMessage(filmeId, 1);
+            sendLikeMessage.sendLikeMessage(filmeId, 1);
         }
         return filmesalvo;
     }
 
-    public void desmarcar(Long clienteId, Long filmeId) {
-        Cliente cliente = clienteDiscoveryClient.findClienteById(clienteId);
-        Filme filme = filmeDiscoveryClient.findFilmeById(filmeId);
-        FilmeClienteLikes filmeClienteLikes = new FilmeClienteLikes(clienteId, filmeId);
-        likesRepository.delete(filmeClienteLikes);
-    }
 }
