@@ -1,16 +1,11 @@
 package br.com.fiap.servicos.controller;
 
 import br.com.fiap.servicos.model.Chamado;
-import br.com.fiap.servicos.model.Cliente;
 import br.com.fiap.servicos.service.ChamadoService;
-import br.com.fiap.servicos.service.ServicosService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;

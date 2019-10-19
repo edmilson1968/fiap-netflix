@@ -2,9 +2,7 @@ package br.com.fiap.servicos.controller;
 
 import br.com.fiap.servicos.TestUtil;
 import br.com.fiap.servicos.model.Chamado;
-import br.com.fiap.servicos.model.Cliente;
 import br.com.fiap.servicos.repository.ChamadoRepository;
-import br.com.fiap.servicos.repository.ServicosRepository;
 import com.jayway.jsonpath.JsonPath;
 import org.junit.After;
 import org.junit.Before;
@@ -13,7 +11,6 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -23,7 +20,6 @@ import org.springframework.test.web.servlet.MvcResult;
 import javax.sql.DataSource;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
-import java.util.Arrays;
 import java.util.UUID;
 
 import static org.hamcrest.Matchers.*;

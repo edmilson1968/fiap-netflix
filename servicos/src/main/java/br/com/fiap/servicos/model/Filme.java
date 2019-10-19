@@ -1,25 +1,19 @@
-package br.com.fiap.filmes.model;
+package br.com.fiap.servicos.model;
 
 import io.swagger.annotations.ApiModel;
 
 import javax.persistence.*;
 
-@Entity
 @ApiModel
 public class Filme {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String titulo;
     private Integer anoLancamento;
     private String genero; //acao | aventura | classico | comedia | documentario | drama | terror | ficção | show
     private String lingua; //ingles | portugues
     private String tipo; //filme | serie
-    @Column(columnDefinition = "integer default 0")
     private Integer likes;
-
-    @Column(columnDefinition = "TEXT", length=1024)
     private String detalhe;
 
     public Filme() {}

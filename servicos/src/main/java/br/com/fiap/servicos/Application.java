@@ -9,6 +9,7 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -24,10 +25,15 @@ public class Application {
         SpringApplication.run(Application.class, args);
     }
 
-    @RequestMapping("/hello_clientes")
+    @RequestMapping("/hello_servicos")
     public String hello() {
-        LOG.log(Level.INFO, "requested Service 'clientes'");
-        return "Hello from service 'clientes'.";
+        LOG.log(Level.INFO, "requested Service 'servicos'");
+        return "Hello from service 'servicos'.";
+    }
+
+    @Bean
+    public RestTemplate restTemplate() {
+        return new RestTemplate();
     }
 
     @Bean

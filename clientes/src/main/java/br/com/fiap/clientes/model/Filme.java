@@ -1,4 +1,4 @@
-package br.com.fiap.filmes.model;
+package br.com.fiap.clientes.model;
 
 import io.swagger.annotations.ApiModel;
 
@@ -16,7 +16,6 @@ public class Filme {
     private String genero; //acao | aventura | classico | comedia | documentario | drama | terror | ficção | show
     private String lingua; //ingles | portugues
     private String tipo; //filme | serie
-    @Column(columnDefinition = "integer default 0")
     private Integer likes;
 
     @Column(columnDefinition = "TEXT", length=1024)

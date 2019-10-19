@@ -36,11 +36,15 @@ zuul:
     # routes for service 'servicos'
     servicos-api-docs:
       strip-prefix: true
-      path: /apidocs/v1/chamados/**
+      path: /apidocs/v1/**
       serviceId: servicos
     servicos:
       strip-prefix: false
       path: /v1/chamados/**
+      serviceId: servicos
+    likes:
+      strip-prefix: false
+      path: /v1/likes/**
       serviceId: servicos
 
 ---

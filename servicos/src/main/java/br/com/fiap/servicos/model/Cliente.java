@@ -4,13 +4,9 @@ import io.swagger.annotations.ApiModel;
 
 import javax.persistence.*;
 
-@Entity
 @ApiModel
 public class Cliente {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    //@Column(name = "id", updatable = false, nullable = false)
     private Long id;
     private String nome;
     private String cpf;
