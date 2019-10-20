@@ -26,13 +26,16 @@ public class Filme {
 
     public Filme() {}
 
-    public Filme(Long id, String titulo, Integer anoLancamento, String genero, String lingua, String tipo) {
+    public Filme(Long id, String titulo, Integer anoLancamento,
+                 String genero, String lingua, String tipo, Integer assistido, Integer likes) {
         this.id = id;
         this.titulo = titulo;
         this.anoLancamento = anoLancamento;
         this.genero = genero;
         this.lingua = lingua;
         this.tipo = tipo;
+        this.assistido = assistido;
+        this.likes = likes;
     }
 
     public Long getId() {

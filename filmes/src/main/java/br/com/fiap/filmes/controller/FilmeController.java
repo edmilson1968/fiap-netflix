@@ -15,7 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/v1/filmes")
+@RequestMapping("/v1")
 @Api(tags="filmes service")
 public class FilmeController {
 
@@ -25,7 +25,7 @@ public class FilmeController {
     @Autowired
     private ObjectMapper objectMapper;
 
-    @GetMapping(produces = {MediaType.APPLICATION_JSON_VALUE} )
+    @GetMapping(value = "/filmes", produces = {MediaType.APPLICATION_JSON_VALUE} )
     @ApiOperation(value="busca todos os filmes. Também utiliza os parâmetros genero e título.")
     public ResponseEntity<Page<Filme>> getFilmes(
             Pageable pageable,
@@ -34,27 +34,54 @@ public class FilmeController {
         if (pageable == null) {
             pageable = PageRequest.of(0, 10);
         }
-        Page<Filme> clientes = null;
+        Page<Filme> filmes = null;
         if (genero != null && ! genero.isEmpty())
-            clientes = filmeService.findAllByGenero(pageable, genero);
+            filmes = filmeService.findAllByGenero(pageable, genero);
         else if (titulo != null && ! titulo.isEmpty())
-            clientes = filmeService.findAllLikeTitulo(pageable, titulo);
+            filmes = filmeService.findAllLikeTitulo(pageable, titulo);
         else
-            clientes = filmeService.findAll(pageable);
+            filmes = filmeService.findAll(pageable);
 
-        return new ResponseEntity<Page<Filme>>(clientes, HttpStatus.OK);
+        return new ResponseEntity<Page<Filme>>(filmes, HttpStatus.OK);
     }
 
-    @GetMapping(value = "/{id}", produces = {MediaType.APPLICATION_JSON_VALUE} )
+    @GetMapping(value = "/filmes/{id}", produces = {MediaType.APPLICATION_JSON_VALUE} )
     @ApiOperation(value="busca um filme")
     public ResponseEntity<Filme> getOneFilme(@PathVariable final Long id) {
         Filme filme = filmeService.findById(id);
         return new ResponseEntity<Filme>(filme, HttpStatus.OK);
     }
 
-    @PostMapping
+    @GetMapping(value = "/filmes-mais-vistos", produces = {MediaType.APPLICATION_JSON_VALUE} )
+    @ApiOperation(value="filmes que já foram assistidos")
+    public ResponseEntity<Page<Filme>> getMaisAssistidos(Pageable pageable) {
+
+        if (pageable == null) {
+            pageable = PageRequest.of(0, 10);
+        }
+        Page<Filme> filmes = null;
+        filmes = filmeService.findByAssistidoGreaterThan(pageable);
+
+        return new ResponseEntity<Page<Filme>>(filmes, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/filmes-sucessos", produces = {MediaType.APPLICATION_JSON_VALUE} )
+    @ApiOperation(value="sucessos por categoria")
+    public ResponseEntity<Page<Filme>> getPreferidosPorCategoria(
+            Pageable pageable,
+            @RequestParam(value="genero", required=true) String genero) {
+
+        if (pageable == null) {
+            pageable = PageRequest.of(0, 10);
+        }
+        Page<Filme> filmes = filmeService.findAllByGeneroAndAssistidoGreaterThan(pageable, genero);
+
+        return new ResponseEntity<Page<Filme>>(filmes, HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/filmes")
     @ApiOperation(value="adiciona um filme")
-    public ResponseEntity<Filme> addCliente(@RequestBody String cliente) {
+    public ResponseEntity<Filme> addFilme(@RequestBody String cliente) {
         Filme aFilme = null;
         try {
             aFilme = objectMapper.readValue(cliente, Filme.class);
@@ -62,7 +89,7 @@ public class FilmeController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
-        Filme novoFilme = filmeService.addCliente(aFilme);
+        Filme novoFilme = filmeService.addFilme(aFilme);
         if (novoFilme != null) {
             return new ResponseEntity<Filme>(novoFilme, HttpStatus.CREATED);
         } else {

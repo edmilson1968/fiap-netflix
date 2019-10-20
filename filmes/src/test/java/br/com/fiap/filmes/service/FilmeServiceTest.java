@@ -37,7 +37,7 @@ public class FilmeServiceTest {
 
     @Before()
     public void setup() {
-        fil1 = new Filme(1L, "Back To The Future", 1984, "ficção", "ingles", "filme");
+        fil1 = new Filme(1L, "Back To The Future", 1984, "ficção", "ingles", "filme", 0, 0);
         fil1.setDetalhe(
                 "Old education him departure any arranging one prevailed. " +
                         "Their end whole might began her. Behaved the comfort another fifteen eat. " +
@@ -47,7 +47,7 @@ public class FilmeServiceTest {
                         "Or mr surrounded conviction so astonished literature. Songs to an blush woman " +
                         "be sorry young. We certain as removal attempt.");
 
-        fil2 = new Filme(2L, "Stranger Things", 2017, "ficção", "ingles", "serie");
+        fil2 = new Filme(2L, "Stranger Things", 2017, "ficção", "ingles", "serie", 0, 0);
         fil2.setDetalhe(
                 "Now led tedious shy lasting females off. Dashwood marianne in of entrance " +
                         "be on wondered possible building. Wondered sociable he carriage in speedily margaret. " +
@@ -56,7 +56,7 @@ public class FilmeServiceTest {
                         "Stronger ecstatic as no judgment daughter speedily thoughts. Worse downs nor might she " +
                         "court did nay forth these.");
 
-        fil3 = new Filme(3L, "The Wall", 1975, "documentario", "ingles", "filme");
+        fil3 = new Filme(3L, "The Wall", 1975, "documentario", "ingles", "filme", 0, 0);
         fil3.setDetalhe(
                 "Projecting surrounded literature yet delightful alteration but bed men. " +
                         "Open are from long why cold. If must snug by upon sang loud left. " +
@@ -120,11 +120,11 @@ public class FilmeServiceTest {
     }
 
     @Test
-    public void shouldAddAValidCliente() {
+    public void shouldAddAValidFilme() {
         fil1.setId(null);
         when(filmeRepository.save(any(Filme.class))).thenAnswer(i -> {fil1.setId(1L); return fil1;});
 
-        Filme res = filmeService.addCliente(fil1);
+        Filme res = filmeService.addFilme(fil1);
 
         assertThat(res).hasNoNullFieldsOrProperties();
         assertThat(res.getId()).isEqualTo(fil1.getId());

@@ -7,7 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import javax.persistence.EntityManager;
 import java.util.Optional;
 
 @Service
@@ -28,7 +28,7 @@ public class FilmeService {
         return filme.get();
     }
 
-    public Filme addCliente(Filme filme) {
+    public Filme addFilme(Filme filme) {
         return repository.save(filme);
     }
 
@@ -38,5 +38,13 @@ public class FilmeService {
 
     public Page<Filme> findAllLikeTitulo(Pageable pageable, String titulo) {
         return repository.findByTituloContains(pageable, titulo);
+    }
+
+    public Page<Filme> findByAssistidoGreaterThan(Pageable pageable) {
+        return repository.findByAssistidoGreaterThan(pageable);
+    }
+
+    public Page<Filme> findAllByGeneroAndAssistidoGreaterThan(Pageable pageable, String genero) {
+        return repository.findAllByGeneroAndAssistidoGreaterThan(pageable, genero, 0);
     }
 }
