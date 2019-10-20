@@ -3,15 +3,11 @@ FROM openjdk:8-alpine
 # environment
 EXPOSE 8080
 
-# executable
-ADD @project.artifactId@-@project.version@.jar app.jar
+COPY @project.artifactId@-@project.version@.jar app.jar
 
-# create group
-#RUN groupadd service
-
-# create user
-RUN addgroup -S service && adduser -S booter -G service
-RUN chgrp service app.jar
+RUN apk update && apk upgrade && apk add netcat-openbsd &&\
+    addgroup -S service && adduser -S booter -G service &&\
+    chgrp service app.jar
 
 USER booter
 WORKDIR /home/booter

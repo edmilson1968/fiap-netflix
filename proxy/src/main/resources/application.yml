@@ -50,6 +50,10 @@ zuul:
       strip-prefix: false
       path: /v1/assistidos/**
       serviceId: servicos
+    favoritos:
+      strip-prefix: false
+      path: /v1/favoritos/**
+      serviceId: servicos
 
 ---
 # LOCAL CONFIGURATION

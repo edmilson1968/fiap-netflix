@@ -5,7 +5,7 @@
 
     <groupId>br.com.fiap</groupId>
     <artifactId>registry</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.1.1</version>
     <packaging>jar</packaging>
 
     <name>registry</name>
