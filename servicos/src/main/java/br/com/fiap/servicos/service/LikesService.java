@@ -5,7 +5,7 @@ import br.com.fiap.servicos.client.ClienteDiscoveryClient;
 import br.com.fiap.servicos.client.FilmeDiscoveryClient;
 import br.com.fiap.servicos.model.Cliente;
 import br.com.fiap.servicos.model.Filme;
-import br.com.fiap.servicos.model.FilmeClienteLikes;
+import br.com.fiap.servicos.model.Like;
 import br.com.fiap.servicos.repository.LikesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,21 +23,21 @@ public class LikesService {
     private ClienteDiscoveryClient clienteDiscoveryClient;
 
     @Autowired
-    private SendMessage sendLikeMessage;
+    private SendMessage sendMessage;
 
-    public FilmeClienteLikes marcar(long clienteId, long filmeId) throws Exception {
+    public Like marcar(long clienteId, long filmeId) throws Exception {
         Cliente cliente = clienteDiscoveryClient.findClienteById(clienteId);
         Filme filme = filmeDiscoveryClient.findFilmeById(filmeId);
 
-        FilmeClienteLikes filmesalvo = null;
-        FilmeClienteLikes filmeClienteLikes = new FilmeClienteLikes(clienteId, filmeId);
+        Like filmesalvo = null;
+        Like like = new Like(clienteId, filmeId);
         if (likesRepository.existsByClienteIdAndFilmeId(clienteId, filmeId)) {
             filmesalvo = likesRepository.findByClienteIdAndFilmeId(clienteId, filmeId);
             likesRepository.deleteById(filmesalvo.getId());
-            sendLikeMessage.sendLikeMessage(filmeId, -1);
+            sendMessage.sendLikeMessage(filmeId, -1);
         } else {
-            filmesalvo = likesRepository.save(filmeClienteLikes);
-            sendLikeMessage.sendLikeMessage(filmeId, 1);
+            filmesalvo = likesRepository.save(like);
+            sendMessage.sendLikeMessage(filmeId, 1);
         }
         return filmesalvo;
     }

@@ -1,8 +1,7 @@
 package br.com.fiap.servicos.controller;
 
-import br.com.fiap.servicos.model.FilmeClienteLikes;
+import br.com.fiap.servicos.model.Like;
 import br.com.fiap.servicos.service.LikesService;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,8 +17,8 @@ public class LikesController {
     LikesService likesService;
 
     @PostMapping
-    public ResponseEntity<?> marcar(@RequestBody FilmeClienteLikes body) {
-        FilmeClienteLikes like = null;
+    public ResponseEntity<?> marcar(@RequestBody Like body) {
+        Like like = null;
         try {
             like = likesService.marcar(body.getClienteId(), body.getFilmeId());
             return new ResponseEntity<>(like, HttpStatus.OK);

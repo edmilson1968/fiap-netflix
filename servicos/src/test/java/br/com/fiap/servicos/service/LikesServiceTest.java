@@ -5,7 +5,7 @@ import br.com.fiap.servicos.client.ClienteDiscoveryClient;
 import br.com.fiap.servicos.client.FilmeDiscoveryClient;
 import br.com.fiap.servicos.model.Cliente;
 import br.com.fiap.servicos.model.Filme;
-import br.com.fiap.servicos.model.FilmeClienteLikes;
+import br.com.fiap.servicos.model.Like;
 import br.com.fiap.servicos.repository.LikesRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.junit.Before;
@@ -37,7 +37,7 @@ public class LikesServiceTest {
     @Mock
     SendMessage sendLikeMessage;
 
-    FilmeClienteLikes filmeClienteLikes;
+    Like like;
 
     Filme fil1;
     Cliente cli1;
@@ -45,7 +45,7 @@ public class LikesServiceTest {
     @Before
     public void setup() {
         cli1 = new Cliente(1L, "cliente1", "1234567890", 25);
-        fil1 = new Filme(2L, "Back To The Future", 1984, "ficção", "ingles", "filme");
+        fil1 = new Filme(2L, "Back To The Future", 1984, "ficção", "ingles", "filme", 0, 0);
         fil1.setDetalhe(
                 "Old education him departure any arranging one prevailed. " +
                         "Their end whole might began her. Behaved the comfort another fifteen eat. " +
@@ -55,22 +55,23 @@ public class LikesServiceTest {
                         "Or mr surrounded conviction so astonished literature. Songs to an blush woman " +
                         "be sorry young. We certain as removal attempt.");
 
-        filmeClienteLikes = new FilmeClienteLikes(cli1.getId(), fil1.getId());
+        like = new Like(cli1.getId(), fil1.getId());
     }
 
     @Test
     public void shouldGiveALikeToAMovie() throws JsonProcessingException {
         when(clienteDiscoveryClient.findClienteById(anyLong())).thenReturn(cli1);
         when(filmeDiscoveryClient.findFilmeById(anyLong())).thenReturn(fil1);
-        when(likesRepository.save(any(FilmeClienteLikes.class)))
-                .thenAnswer(i -> {filmeClienteLikes.setId(1L); return filmeClienteLikes;});
+        when(likesRepository.save(any(Like.class)))
+                .thenAnswer(i -> {
+                    like.setId(1L); return like;});
         when(likesRepository.existsByClienteIdAndFilmeId(anyLong(), anyLong())).thenReturn(false);
-        when(likesRepository.findByClienteIdAndFilmeId(anyLong(), anyLong())).thenReturn(filmeClienteLikes);
+        when(likesRepository.findByClienteIdAndFilmeId(anyLong(), anyLong())).thenReturn(like);
         doNothing().when(likesRepository).deleteById(anyLong());
         doNothing().when(sendLikeMessage).sendLikeMessage(anyLong(), anyInt());
 
 
-        FilmeClienteLikes res = null;
+        Like res = null;
         try {
             res = likesService.marcar(cli1.getId(), fil1.getId());
         } catch (Exception e) {
@@ -86,15 +87,16 @@ public class LikesServiceTest {
     public void shouldRemoveALikeToAMovie() throws JsonProcessingException {
         when(clienteDiscoveryClient.findClienteById(anyLong())).thenReturn(cli1);
         when(filmeDiscoveryClient.findFilmeById(anyLong())).thenReturn(fil1);
-        when(likesRepository.save(any(FilmeClienteLikes.class)))
-                .thenAnswer(i -> {filmeClienteLikes.setId(1L); return filmeClienteLikes;});
+        when(likesRepository.save(any(Like.class)))
+                .thenAnswer(i -> {
+                    like.setId(1L); return like;});
         when(likesRepository.existsByClienteIdAndFilmeId(anyLong(), anyLong())).thenReturn(true);
-        when(likesRepository.findByClienteIdAndFilmeId(anyLong(), anyLong())).thenReturn(filmeClienteLikes);
+        when(likesRepository.findByClienteIdAndFilmeId(anyLong(), anyLong())).thenReturn(like);
         doNothing().when(likesRepository).deleteById(anyLong());
         doNothing().when(sendLikeMessage).sendLikeMessage(anyLong(), anyInt());
 
 
-        FilmeClienteLikes res = null;
+        Like res = null;
         try {
             res = likesService.marcar(cli1.getId(), fil1.getId());
         } catch (Exception e) {
