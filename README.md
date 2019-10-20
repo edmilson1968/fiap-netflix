@@ -5,4 +5,4 @@
 - Possibilidade de buscar um filme por palavra-chave;
 - Possibilidade de exibir os filmes mais vistos por categorias;
 - Possibilidade de abrir um chamado técnico de algum problema que está acontecendo;
-- Possibilidade de visualizar os filmes e séries que já foram assistidos;
+- Possibilidade de visualizar os filmes e séries que já foram assistido;
