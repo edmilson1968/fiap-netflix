@@ -22,16 +22,6 @@ public class ChamadosController {
     @Autowired
     private ObjectMapper objectMapper;
 
-//    @GetMapping(produces = {MediaType.APPLICATION_JSON_VALUE} )
-//    @ApiOperation(value="busca todos os clientes")
-//    public ResponseEntity<Page<Cliente>> getClientes(Pageable pageable) {
-//        if (pageable == null) {
-//            pageable = PageRequest.of(0, 10);
-//        }
-//        Page<Cliente> clientes = clienteService.findAll(pageable);
-//        return new ResponseEntity<Page<Cliente>>(clientes, HttpStatus.OK);
-//    }
-//
     @GetMapping(value = "/{id}", produces = {MediaType.APPLICATION_JSON_VALUE} )
     @ApiOperation(value="busca um chamado")
     public ResponseEntity<Chamado> getOneTicket(@PathVariable final String id) {

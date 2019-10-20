@@ -1,6 +1,7 @@
 package br.com.fiap.servicos.controller;
 
 import br.com.fiap.servicos.model.Assistido;
+import br.com.fiap.servicos.model.Favorito;
 import br.com.fiap.servicos.service.AssistidosService;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,9 +21,14 @@ public class AssistidosController {
     AssistidosService assistidosService;
 
     @PostMapping
-    public ResponseEntity<?> marcar(@RequestBody Assistido assistido) throws Exception {
-        assistido = assistidosService.marcar(assistido.getClienteId(), assistido.getFilmeId());
-        return new ResponseEntity<>(assistido, HttpStatus.OK);
+    public ResponseEntity<?> marcar(@RequestBody Assistido body) throws Exception {
+        Assistido assistido = null;
+        try {
+            assistido = assistidosService.marcar(body.getClienteId(), body.getFilmeId());
+            return new ResponseEntity<>(assistido, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
 }

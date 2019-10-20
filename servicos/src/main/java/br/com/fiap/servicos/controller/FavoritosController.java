@@ -21,7 +21,7 @@ public class FavoritosController {
     FavoritosService favoritosService;
 
     @PostMapping
-    public ResponseEntity<?> marcar(@RequestBody Like body) {
+    public ResponseEntity<?> marcar(@RequestBody Favorito body) {
         Favorito favorito = null;
         try {
             favorito = favoritosService.marcar(body.getClienteId(), body.getFilmeId());
