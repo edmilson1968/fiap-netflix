@@ -2,7 +2,7 @@ package br.com.fiap.servicos.controller;
 
 import br.com.fiap.servicos.TestUtil;
 import br.com.fiap.servicos.model.Chamado;
-import br.com.fiap.servicos.repository.ChamadoRepository;
+import br.com.fiap.servicos.repository.ChamadosRepository;
 import com.jayway.jsonpath.JsonPath;
 import org.junit.After;
 import org.junit.Before;
@@ -36,7 +36,7 @@ public class ChamadosControllerIntegrationTest {
     @Autowired
     private DataSource dataSource;
     @Autowired
-    private ChamadoRepository repo;
+    private ChamadosRepository repo;
 
     @Autowired
     private MockMvc mvc;

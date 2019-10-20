@@ -1,7 +1,7 @@
 package br.com.fiap.servicos.controller;
 
 import br.com.fiap.servicos.model.Chamado;
-import br.com.fiap.servicos.service.ChamadoService;
+import br.com.fiap.servicos.service.ChamadosService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 public class ChamadosController {
 
     @Autowired
-    private ChamadoService chamadoService;
+    private ChamadosService chamadosService;
 
     @Autowired
     private ObjectMapper objectMapper;
@@ -35,7 +35,7 @@ public class ChamadosController {
     @GetMapping(value = "/{id}", produces = {MediaType.APPLICATION_JSON_VALUE} )
     @ApiOperation(value="busca um chamado")
     public ResponseEntity<Chamado> getOneTicket(@PathVariable final String id) {
-        Chamado chamado = chamadoService.findById(id);
+        Chamado chamado = chamadosService.findById(id);
         return new ResponseEntity<Chamado>(chamado, HttpStatus.OK);
     }
 
@@ -49,7 +49,7 @@ public class ChamadosController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
-        Chamado novoChamado = chamadoService.abrirChamado(aChamado);
+        Chamado novoChamado = chamadosService.abrirChamado(aChamado);
         if (novoChamado != null) {
             return new ResponseEntity<Chamado>(novoChamado, HttpStatus.CREATED);
         } else {
@@ -60,7 +60,7 @@ public class ChamadosController {
     @PutMapping("/{id}")
     @ApiOperation(value="fechar um chamado técnico")
     public ResponseEntity<Chamado> fecharChamado(@PathVariable final String id) {
-        Chamado aChamado = chamadoService.fecharChamado(id);
+        Chamado aChamado = chamadosService.fecharChamado(id);
 
         return new ResponseEntity<Chamado>(aChamado, HttpStatus.OK);
     }

@@ -2,7 +2,7 @@ package br.com.fiap.servicos.service;
 
 import br.com.fiap.servicos.TestUtil;
 import br.com.fiap.servicos.model.Chamado;
-import br.com.fiap.servicos.repository.ChamadoRepository;
+import br.com.fiap.servicos.repository.ChamadosRepository;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -29,10 +29,10 @@ public class ChamadosServiceIntegrationTest {
     private DataSource dataSource;
 
     @Autowired
-    private ChamadoRepository repo;
+    private ChamadosRepository repo;
 
     @Autowired
-    private ChamadoService chamadoService;
+    private ChamadosService chamadosService;
 
     Chamado tkt1;
 
@@ -57,33 +57,19 @@ public class ChamadosServiceIntegrationTest {
         TestUtil.cleanupDatabase(dataSource);
     }
 
-//    @Test
-//    public void shoudRetrieveAllClientes() {
-//        page = new PageImpl<Cliente>(clientes);
-//        final Page<Cliente> all = clienteService.findAll(PageRequest.of(0, 10));
-//        assertThat(all.getContent()).isEqualTo(clientes);
-//    }
-//
     @Test
     public void shoudRetrieveChamadoById() {
-        final Chamado find = chamadoService.findById(tkt1.getId().toString());
+        final Chamado find = chamadosService.findById(tkt1.getId().toString());
         assertThat(tkt1).isEqualTo(find);
     }
 
     @Test
     public void shouldThrowChamadoNotFoundForTicketWithValidId() {
         String uuid = UUID.randomUUID().toString();
-        assertThatThrownBy(() -> chamadoService.findById(uuid))
+        assertThatThrownBy(() -> chamadosService.findById(uuid))
                 .isInstanceOf(ChamadoNotFoundException.class)
                 .hasMessage("chamado invalido: " + uuid);
     }
-//
-//    @Test
-//    public void shouldThrowClienteNotFoundExceptionForClienteByIdNull() {
-//        assertThatThrownBy(() -> clienteService.findById(null))
-//                .isInstanceOf(ServicoNotFoundException.class)
-//                .hasMessage("id invalido");
-//    }
 
     @Test
     public void shouldAddAValidTicket() {
@@ -94,7 +80,7 @@ public class ChamadosServiceIntegrationTest {
                 "Busquemos essencial desalinho so desataram as na respondeu encontrou. Minima abysmo animar ar " +
                 "sentar forcar tornas os da. Encostado emmudecer rua clamoroso dei foi viu contribue.");
 
-        Chamado res = chamadoService.abrirChamado(tkt1);
+        Chamado res = chamadosService.abrirChamado(tkt1);
 
         assertThat(res.getDataAbertura()).isBefore(LocalDateTime.now());
         assertThat(res.getDataFechamento()).isNull();
