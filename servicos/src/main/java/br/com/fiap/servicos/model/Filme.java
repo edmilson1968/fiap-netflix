@@ -2,29 +2,42 @@ package br.com.fiap.servicos.model;
 
 import io.swagger.annotations.ApiModel;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 @ApiModel
 public class Filme {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String titulo;
     private Integer anoLancamento;
     private String genero; //acao | aventura | classico | comedia | documentario | drama | terror | ficção | show
     private String lingua; //ingles | portugues
     private String tipo; //filme | serie
+    @Column(columnDefinition = "integer default 0")
     private Integer likes;
+    @Column(columnDefinition = "integer default 0")
+    private Integer assistido;
+
+    @Column(columnDefinition = "TEXT", length=1024)
     private String detalhe;
 
     public Filme() {}
 
-    public Filme(Long id, String titulo, Integer anoLancamento, String genero, String lingua, String tipo) {
+    public Filme(Long id, String titulo, Integer anoLancamento,
+                 String genero, String lingua, String tipo, Integer assistido, Integer likes) {
         this.id = id;
         this.titulo = titulo;
         this.anoLancamento = anoLancamento;
         this.genero = genero;
         this.lingua = lingua;
         this.tipo = tipo;
+        this.assistido = assistido;
+        this.likes = likes;
     }
 
     public Long getId() {
@@ -82,12 +95,20 @@ public class Filme {
         return this.detalhe;
     }
 
+    public Integer getLikes() {
+        return likes;
+    }
+
     public void setLikes(Integer likes) {
         this.likes = likes;
     }
 
-    public Integer getLikes() {
-        return likes;
+    public Integer getAssistido() {
+        return assistido;
+    }
+
+    public void setAssistido(Integer assistido) {
+        this.assistido = assistido;
     }
 
     @Override
