@@ -9,7 +9,7 @@ import javax.persistence.Id;
 
 @Entity
 @ApiModel
-public class FilmeClienteAssistidos {
+public class Favorito {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -17,9 +17,9 @@ public class FilmeClienteAssistidos {
     private Long clienteId;
     private Long filmeId;
 
-    public FilmeClienteAssistidos() {}
+    public Favorito() {}
 
-    public FilmeClienteAssistidos(Long clienteId, Long filmeId) {
+    public Favorito(Long clienteId, Long filmeId) {
         this.clienteId = clienteId;
         this.filmeId = filmeId;
     }
