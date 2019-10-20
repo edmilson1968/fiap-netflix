@@ -17,3 +17,5 @@ spring:
       hibernate:
         dialect: org.hibernate.dialectH2Dialect
 
+fanout.exchange:
+  name: test.fanout
