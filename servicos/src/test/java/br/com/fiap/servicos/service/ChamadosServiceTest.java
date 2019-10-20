@@ -1,7 +1,7 @@
 package br.com.fiap.servicos.service;
 
 import br.com.fiap.servicos.model.Chamado;
-import br.com.fiap.servicos.repository.ChamadoRepository;
+import br.com.fiap.servicos.repository.ChamadosRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -18,20 +18,20 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @RunWith(SpringRunner.class)
-public class ChamadoServiceTest {
+public class ChamadosServiceTest {
 
     @Mock
-    private ChamadoRepository chamadoRepository;
+    private ChamadosRepository chamadosRepository;
 
     @InjectMocks
-    private ChamadoService chamadoService;
+    private ChamadosService chamadosService;
 
     @Test
     public void shouldFindChamadoById() {
         Chamado tkt1 = new Chamado(1L, "filme nao funciona");
         String uuid = UUID.randomUUID().toString();
 
-        when(chamadoRepository.findById(any(UUID.class)))
+        when(chamadosRepository.findById(any(UUID.class)))
                 .thenAnswer(i -> {
                     tkt1.setId(UUID.fromString(uuid));
                     tkt1.setDataAbertura(LocalDateTime.now());
@@ -43,29 +43,29 @@ public class ChamadoServiceTest {
 
                     return Optional.of(tkt1);
                 });
-        Chamado res = chamadoService.findById(uuid);
+        Chamado res = chamadosService.findById(uuid);
         assertThat(res.getId()).isNotNull();
         assertThat(res.getId().toString()).isEqualTo(uuid);
         assertThat(res.getDataAbertura()).isEqualToIgnoringSeconds(LocalDateTime.now());
         assertThat(res.getCliente()).isEqualTo(tkt1.getCliente());
         assertThat(res.getMotivo()).isEqualTo(tkt1.getMotivo());
         assertThat(res.getDescricao()).isNotEmpty();
-        verify(chamadoRepository, times(1)).findById(any(UUID.class));
+        verify(chamadosRepository, times(1)).findById(any(UUID.class));
     }
 
     @Test
     public void shouldThrowChamadoNotFoundExceptionForTicketByIdInvalid() {
         assertThatExceptionOfType(ChamadoNotFoundException.class)
-                .isThrownBy(() -> chamadoService.findById("aquiumidinvalido")).withMessage("chamado invalido");
-        verify(chamadoRepository, times(0)).findById(any(UUID.class));
+                .isThrownBy(() -> chamadosService.findById("aquiumidinvalido")).withMessage("chamado invalido");
+        verify(chamadosRepository, times(0)).findById(any(UUID.class));
     }
 
     @Test
     public void shouldThrowChamadoNotFoundForTiketWithoutValidId() {
-        when(chamadoRepository.findById(UUID.randomUUID())).thenThrow(ChamadoNotFoundException.class);
+        when(chamadosRepository.findById(UUID.randomUUID())).thenThrow(ChamadoNotFoundException.class);
         assertThatExceptionOfType(ChamadoNotFoundException.class)
-                .isThrownBy(() -> chamadoService.findById(UUID.randomUUID().toString()));
-        verify(chamadoRepository, times(1)).findById(any(UUID.class));
+                .isThrownBy(() -> chamadosService.findById(UUID.randomUUID().toString()));
+        verify(chamadosRepository, times(1)).findById(any(UUID.class));
     }
 
     @Test
@@ -77,13 +77,13 @@ public class ChamadoServiceTest {
                         "Busquemos essencial desalinho so desataram as na respondeu encontrou. Minima abysmo animar ar " +
                         "sentar forcar tornas os da. Encostado emmudecer rua clamoroso dei foi viu contribue.");
 
-        when(chamadoRepository.save(any(Chamado.class)))
+        when(chamadosRepository.save(any(Chamado.class)))
                 .thenAnswer(i -> {
                     tkt1.setId(UUID.randomUUID());
                     return tkt1;
                 });
 
-        Chamado res = chamadoService.abrirChamado(tkt1);
+        Chamado res = chamadosService.abrirChamado(tkt1);
         assertThat(res.getDataAbertura()).isEqualToIgnoringSeconds(LocalDateTime.now());
         assertThat(res.getDataFechamento()).isNull();
         assertThat(res.getId()).isEqualTo(tkt1.getId());
@@ -100,7 +100,7 @@ public class ChamadoServiceTest {
                 "sentar forcar tornas os da. Encostado emmudecer rua clamoroso dei foi viu contribue.");
 
         String uuid = UUID.randomUUID().toString();
-        when(chamadoRepository.findById(any(UUID.class)))
+        when(chamadosRepository.findById(any(UUID.class)))
                 .thenAnswer(i -> {
                     tkt1.setId(UUID.fromString(uuid));
                     tkt1.setDataAbertura(LocalDateTime.now());
@@ -112,14 +112,14 @@ public class ChamadoServiceTest {
 
                     return Optional.of(tkt1);
                 });
-        when(chamadoRepository.save(any(Chamado.class)))
+        when(chamadosRepository.save(any(Chamado.class)))
                 .thenAnswer(i -> {
                     tkt1.setId(UUID.fromString(uuid));
                     tkt1.setDataFechamento(LocalDateTime.now());
                     return tkt1;
                 });
 
-        Chamado res = chamadoService.fecharChamado(uuid);
+        Chamado res = chamadosService.fecharChamado(uuid);
         assertThat(res).hasNoNullFieldsOrProperties();
         assertThat(res.getId()).isEqualTo(tkt1.getId());
         assertThat(res.getDataFechamento()).isNotNull();
