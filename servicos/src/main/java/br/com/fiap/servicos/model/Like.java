@@ -4,9 +4,9 @@ import io.swagger.annotations.ApiModel;
 
 import javax.persistence.*;
 
-@Entity
+@Entity(name = "gostei")
 @ApiModel
-public class FilmeClienteLikes {
+public class Like {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -14,9 +14,9 @@ public class FilmeClienteLikes {
     private Long clienteId;
     private Long filmeId;
 
-    public FilmeClienteLikes() {}
+    public Like() {}
 
-    public FilmeClienteLikes(Long clienteId, Long filmeId) {
+    public Like(Long clienteId, Long filmeId) {
         this.clienteId = clienteId;
         this.filmeId = filmeId;
     }

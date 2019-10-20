@@ -5,5 +5,5 @@ import org.springframework.data.repository.CrudRepository;
 
 import java.util.UUID;
 
-public interface ChamadoRepository extends CrudRepository<Chamado, UUID> {
+public interface ChamadosRepository extends CrudRepository<Chamado, UUID> {
 }

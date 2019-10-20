@@ -1,7 +1,7 @@
 package br.com.fiap.servicos.service;
 
 import br.com.fiap.servicos.model.Chamado;
-import br.com.fiap.servicos.repository.ChamadoRepository;
+import br.com.fiap.servicos.repository.ChamadosRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,10 +10,10 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class ChamadoService {
+public class ChamadosService {
 
     @Autowired
-    private ChamadoRepository repo;
+    private ChamadosRepository repo;
 
     public Chamado abrirChamado(Chamado aChamado) {
         aChamado.setDataAbertura(LocalDateTime.now());
