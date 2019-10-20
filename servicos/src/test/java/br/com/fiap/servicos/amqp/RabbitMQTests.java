@@ -3,10 +3,7 @@ package br.com.fiap.servicos.amqp;
 import br.com.fiap.servicos.TestConfiguration;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.amqp.core.BindingBuilder;
-import org.springframework.amqp.core.Message;
-import org.springframework.amqp.core.Queue;
-import org.springframework.amqp.core.TopicExchange;
+import org.springframework.amqp.core.*;
 import org.springframework.amqp.rabbit.core.RabbitAdmin;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.BeanFactory;
@@ -21,7 +18,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @RunWith(SpringRunner.class)
 public class RabbitMQTests {
 
-    private static final String QUEUE_NAME = "events";
+    private static final String QUEUE_NAME = "filmes_events_queue";
     private static final String EXCHANGE_NAME = UUID.randomUUID().toString();
 
     @Test
@@ -29,7 +26,7 @@ public class RabbitMQTests {
         String messageBody = "Hello world!";
         try (AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(TestConfiguration.class)) {
             RabbitTemplate rabbitTemplate = queueAndExchangeSetup(context);
-            rabbitTemplate.convertAndSend(EXCHANGE_NAME, "test.key1", messageBody);
+            rabbitTemplate.convertAndSend(EXCHANGE_NAME, "filmes.events.key1", messageBody);
 
             Message message = rabbitTemplate.receive(QUEUE_NAME);
 
@@ -43,9 +40,9 @@ public class RabbitMQTests {
 
         Queue queue = new Queue(QUEUE_NAME, false);
         rabbitAdmin.declareQueue(queue);
-        TopicExchange exchange = new TopicExchange(EXCHANGE_NAME);
+        Exchange exchange = new FanoutExchange(EXCHANGE_NAME);
         rabbitAdmin.declareExchange(exchange);
-        rabbitAdmin.declareBinding(BindingBuilder.bind(queue).to(exchange).with("test.*"));
+        rabbitAdmin.declareBinding(BindingBuilder.bind(queue).to(exchange).with("filmes.events.*").noargs());
 
 
         return context.getBean(RabbitTemplate.class);
