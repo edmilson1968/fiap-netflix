@@ -123,12 +123,12 @@ public class LikesServiceIntegrationTest {
     public void shouldUnMarkALikeOnAFilme() throws Exception {
         try (AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(TestConfiguration.class)) {
 
-            queueAndExchangeSetup(context);
             repo.save(like);
             likesService.marcar(1L, 1L);
             Message message = rabbitTemplate.receive(QUEUE_NAME);
 
             boolean res = repo.existsByClienteIdAndFilmeId(1L, 1L);
+            queueAndExchangeSetup(context);
 
             assertFalse(res);
             assertThat(message).isNotNull();
