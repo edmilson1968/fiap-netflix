@@ -8,15 +8,12 @@
 - Possibilidade de visualizar os filmes e séries que já foram assistido;
 
 # Api Documentation
-Api Documentation dos serviços genéricos
+Api Documentation dos microsserviços genéricos
 
 ## Version: 1.0
 
-### /v1/clientes
-
-#### GET
+#### GET /v1/clientes
 ##### Summary:
-
 busca todos os clientes
 
 ##### Parameters
@@ -40,9 +37,8 @@ busca todos os clientes
 | 403 | Forbidden |  |
 | 404 | Not Found |  |
 
-#### POST
+#### POST /
 ##### Summary:
-
 adiciona um cliente
 
 ##### Parameters
@@ -61,11 +57,8 @@ adiciona um cliente
 | 403 | Forbidden |  |
 | 404 | Not Found |  |
 
-### /v1/clientes/{id}
-
-#### GET
+#### GET /v1/clientes/{id}
 ##### Summary:
-
 busca um cliente
 
 ##### Parameters
@@ -83,11 +76,9 @@ busca um cliente
 | 403 | Forbidden |  |
 | 404 | Not Found |  |
 
-### /v1/clientes/{id}/chamados
 
-#### POST
+#### POST /v1/clientes/{id}/chamados
 ##### Summary:
-
 abre um chamado para um cliente
 
 ##### Parameters
@@ -167,21 +158,12 @@ abre um chamado para um cliente
 
 
 # Api Documentation
-Api Documentation
+Api Documentation para o microsserviço de Filmes
 
 ## Version: 1.0
 
-### Terms of service
-urn:tos
-
-
-**License:** [Apache 2.0](http://www.apache.org/licenses/LICENSE-2.0)
-
-### /v1/filmes
-
-#### GET
+#### GET /v1/filmes
 ##### Summary:
-
 busca todos os filmes. Também utiliza os parâmetros genero e título.
 
 ##### Parameters
@@ -207,9 +189,8 @@ busca todos os filmes. Também utiliza os parâmetros genero e título.
 | 403 | Forbidden |  |
 | 404 | Not Found |  |
 
-#### POST
+#### POST /
 ##### Summary:
-
 adiciona um filme
 
 ##### Parameters
@@ -232,7 +213,6 @@ adiciona um filme
 
 #### GET
 ##### Summary:
-
 filmes que já foram assistidos
 
 ##### Parameters
@@ -256,11 +236,9 @@ filmes que já foram assistidos
 | 403 | Forbidden |  |
 | 404 | Not Found |  |
 
-### /v1/filmes-sucessos
 
-#### GET
+#### GET /v1/filmes-sucessos
 ##### Summary:
-
 sucessos por categoria
 
 ##### Parameters
@@ -285,11 +263,9 @@ sucessos por categoria
 | 403 | Forbidden |  |
 | 404 | Not Found |  |
 
-### /v1/filmes/{id}
 
-#### GET
+#### GET /v1/filmes/{id}
 ##### Summary:
-
 busca um filme
 
 ##### Parameters
@@ -362,22 +338,13 @@ busca um filme
 
 
 # Api Documentation
-Api Documentation
+Api Documentation para o microsserviços de Clientes
 
 ## Version: 1.0
 
-### Terms of service
-urn:tos
-
-
-**License:** [Apache 2.0](http://www.apache.org/licenses/LICENSE-2.0)
-
-### /v1/assistidos
-
-#### POST
+#### POST /v1/assistidos
 ##### Summary:
-
-marcar
+marcar um filme já assistido
 
 ##### Parameters
 
@@ -395,11 +362,9 @@ marcar
 | 403 | Forbidden |  |
 | 404 | Not Found |  |
 
-### /v1/chamados
 
-#### POST
+#### POST /v1/chamados
 ##### Summary:
-
 abrir um chamado técnico
 
 ##### Parameters
@@ -418,11 +383,8 @@ abrir um chamado técnico
 | 403 | Forbidden |  |
 | 404 | Not Found |  |
 
-### /v1/chamados/{id}
-
-#### GET
+#### GET /v1/chamados/{id}
 ##### Summary:
-
 busca um chamado
 
 ##### Parameters
@@ -440,9 +402,8 @@ busca um chamado
 | 403 | Forbidden |  |
 | 404 | Not Found |  |
 
-#### PUT
+#### PUT /
 ##### Summary:
-
 fechar um chamado técnico
 
 ##### Parameters
@@ -461,12 +422,10 @@ fechar um chamado técnico
 | 403 | Forbidden |  |
 | 404 | Not Found |  |
 
-### /v1/favoritos
 
-#### POST
+#### POST /v1/favoritos
 ##### Summary:
-
-marcar
+marcar um filme como favorito
 
 ##### Parameters
 
@@ -484,12 +443,10 @@ marcar
 | 403 | Forbidden |  |
 | 404 | Not Found |  |
 
-### /v1/likes
 
-#### POST
+#### POST /v1/likes
 ##### Summary:
-
-marcar
+marcar um filme com like
 
 ##### Parameters
 
