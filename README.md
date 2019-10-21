@@ -7,8 +7,8 @@
 - Possibilidade de abrir um chamado técnico de algum problema que está acontecendo;
 - Possibilidade de visualizar os filmes e séries que já foram assistido;
 
-# Api Documentation
-Api Documentation dos microsserviços genéricos
+# Api Documentation dos microsserviços genéricos
+
 
 ## Version: 1.0
 
@@ -153,8 +153,8 @@ abre um chamado para um cliente
 | unsorted | boolean |  | No |%
 
 
-# Api Documentation
-Api Documentation para o microsserviço de Filmes
+# Api Documentation para o microsserviço de Filmes
+
 
 ## Version: 1.0
 
@@ -327,8 +327,8 @@ busca um filme
 
 
 
-# Api Documentation
-Api Documentation para o microsserviços de Clientes
+# Api Documentation para o microsserviços de Clientes
+
 
 ## Version: 1.0
 
