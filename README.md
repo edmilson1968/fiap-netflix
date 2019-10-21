@@ -159,7 +159,6 @@ Api Documentation para o microsserviço de Filmes
 ## Version: 1.0
 
 #### GET /v1/filmes
-##### Summary:
 busca todos os filmes. Também utiliza os parâmetros genero e título.
 
 ##### Parameters
@@ -186,7 +185,6 @@ busca todos os filmes. Também utiliza os parâmetros genero e título.
 | 404 | Not Found |  |
 
 #### POST /
-##### Summary:
 adiciona um filme
 
 ##### Parameters
@@ -205,10 +203,8 @@ adiciona um filme
 | 403 | Forbidden |  |
 | 404 | Not Found |  |
 
-### /v1/filmes-mais-vistos
 
-#### GET
-##### Summary:
+#### GET /v1/filmes-mais-vistos
 filmes que já foram assistidos
 
 ##### Parameters
@@ -234,7 +230,6 @@ filmes que já foram assistidos
 
 
 #### GET /v1/filmes-sucessos
-##### Summary:
 sucessos por categoria
 
 ##### Parameters
@@ -261,7 +256,6 @@ sucessos por categoria
 
 
 #### GET /v1/filmes/{id}
-##### Summary:
 busca um filme
 
 ##### Parameters
@@ -339,7 +333,6 @@ Api Documentation para o microsserviços de Clientes
 ## Version: 1.0
 
 #### POST /v1/assistidos
-##### Summary:
 marcar um filme já assistido
 
 ##### Parameters
@@ -360,7 +353,6 @@ marcar um filme já assistido
 
 
 #### POST /v1/chamados
-##### Summary:
 abrir um chamado técnico
 
 ##### Parameters
@@ -380,7 +372,6 @@ abrir um chamado técnico
 | 404 | Not Found |  |
 
 #### GET /v1/chamados/{id}
-##### Summary:
 busca um chamado
 
 ##### Parameters
@@ -399,7 +390,6 @@ busca um chamado
 | 404 | Not Found |  |
 
 #### PUT /
-##### Summary:
 fechar um chamado técnico
 
 ##### Parameters
@@ -420,7 +410,6 @@ fechar um chamado técnico
 
 
 #### POST /v1/favoritos
-##### Summary:
 marcar um filme como favorito
 
 ##### Parameters
@@ -441,7 +430,6 @@ marcar um filme como favorito
 
 
 #### POST /v1/likes
-##### Summary:
 marcar um filme com like
 
 ##### Parameters
