@@ -7,6 +7,41 @@
 - Possibilidade de abrir um chamado técnico de algum problema que está acontecendo;
 - Possibilidade de visualizar os filmes e séries que já foram assistido;
 
+# pré-requisitos
+ - Java 8
+ - Maven
+ - Docker
+
+# Considerações sobre a implementação
+ Além do Service Discovery, Mensageria e Resiliência, também foram implementados 3 microsserviços:
+  - Clientes: cadastra e lê a base de Clientes
+  - Filmes  : cadastra e lê a base de Filmes
+  - Serviços: realiza outras operações (likes, favoritos, marcações para o futuro, etc)
+
+O sistema também utiliza um gateway Zuul como ponto único de entrada das requisições.
+
+Não houve a necessidade de implementação de um ConfigServer pelo fato da montagem
+ser feita utilizando tecnologia de contêineres e, portanto, as configurações podem
+ser enviadas na subida do sistema através de variáveis de ambiente. 
+
+
+# montagem do sistema e execução
+```bash
+$ git clone https://github.com/edmilson1968/fiap-netflix
+$ cd fiap-netflix
+$ mvn clean install
+$ cd docker
+$ docker-compose build
+$ docker-compose up -d
+```
+Foi utilizado o Swagger como gerador de documentação do sistema.
+Ele pode ser acessado através da URL
+
+http://localhost/swagger-ui.html
+
+É possível selecionar determinada documentação de um serviço específico selecionando-o 
+na parte superior direita da tela ("Select a spec")
+
 # Api Documentation dos microsserviços genéricos
 
 
