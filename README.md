@@ -20,7 +20,7 @@
 
 O sistema também utiliza um gateway Zuul como ponto único de entrada das requisições.
 
-A URL base dos serviços está em http://<servidor>
+A URL base dos serviços está em http://localhost
 
 Não houve a necessidade de implementação de um ConfigServer pelo fato da montagem
 ser feita utilizando tecnologia de contêineres e, portanto, as configurações podem
