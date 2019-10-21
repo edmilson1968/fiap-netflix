@@ -13,7 +13,6 @@ Api Documentation dos microsserviços genéricos
 ## Version: 1.0
 
 #### GET /v1/clientes
-##### Summary:
 busca todos os clientes
 
 ##### Parameters
@@ -38,7 +37,6 @@ busca todos os clientes
 | 404 | Not Found |  |
 
 #### POST /
-##### Summary:
 adiciona um cliente
 
 ##### Parameters
@@ -58,7 +56,6 @@ adiciona um cliente
 | 404 | Not Found |  |
 
 #### GET /v1/clientes/{id}
-##### Summary:
 busca um cliente
 
 ##### Parameters
@@ -78,7 +75,6 @@ busca um cliente
 
 
 #### POST /v1/clientes/{id}/chamados
-##### Summary:
 abre um chamado para um cliente
 
 ##### Parameters
