@@ -36,7 +36,7 @@ busca todos os clientes
 | 403 | Forbidden |  |
 | 404 | Not Found |  |
 
-#### POST /
+#### POST /v1/clientes
 adiciona um cliente
 
 ##### Parameters
@@ -184,7 +184,7 @@ busca todos os filmes. Também utiliza os parâmetros genero e título.
 | 403 | Forbidden |  |
 | 404 | Not Found |  |
 
-#### POST /
+#### POST /v1/filmes
 adiciona um filme
 
 ##### Parameters
@@ -389,7 +389,7 @@ busca um chamado
 | 403 | Forbidden |  |
 | 404 | Not Found |  |
 
-#### PUT /
+#### PUT /v1/chamados/{id}
 fechar um chamado técnico
 
 ##### Parameters
