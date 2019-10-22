@@ -26,6 +26,8 @@ Não houve a necessidade de implementação de um ConfigServer pelo fato da mont
 ser feita utilizando tecnologia de contêineres e, portanto, as configurações podem
 ser enviadas na subida do sistema através de variáveis de ambiente. 
 
+![alt text](https://raw.githubusercontent.com/edmilson1968/fiap-netflix/master/Fiap1DVP-Microservices.png)
+
 
 # montagem do sistema e execução
 ```bash
