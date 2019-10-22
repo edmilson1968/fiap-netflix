@@ -44,7 +44,8 @@ http://localhost/swagger-ui.html
 É possível selecionar determinada documentação de um serviço específico selecionando-o 
 na parte superior direita da tela ("Select a spec")
 
-# Api Documentation dos microsserviços genéricos
+# Api Documentation dos microsserviços de clientes
+http://localhost/swagger-ui.html?urls.primaryName=clientes-api-docs#/clientes_service
 
 
 ## Version: 1.0
@@ -191,7 +192,7 @@ abre um chamado para um cliente
 
 
 # Api Documentation para o microsserviço de Filmes
-
+http://localhost/swagger-ui.html?urls.primaryName=filmes-api-docs
 
 ## Version: 1.0
 
@@ -364,8 +365,8 @@ busca um filme
 
 
 
-# Api Documentation para o microsserviços de Clientes
-
+# Api Documentation para o microsserviços genéricos
+http://localhost/swagger-ui.html?urls.primaryName=servicos-api-docs
 
 ## Version: 1.0
 
