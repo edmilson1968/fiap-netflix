@@ -83,7 +83,7 @@ public class FilmeServiceIntegrationTest {
     }
 
     @Test
-    public void shoudRetrieveAllClientes() {
+    public void shoudRetrieveAllFilmes() {
         page = new PageImpl<Filme>(filmes);
         final Page<Filme> all = filmeService.findAll(PageRequest.of(0, 10));
         assertThat(all.getContent()).isSubsetOf(filmes);
@@ -108,21 +108,21 @@ public class FilmeServiceIntegrationTest {
     }
 
     @Test
-    public void shoudRetrieveClienteById() {
+    public void shoudRetrieveFilmeById() {
         final Filme find = filmeService.findById(2L);
         assertThat(filmes).contains(find);
         assertThat(find).isEqualTo(fil2);
     }
 
     @Test
-    public void shouldThrowClienteNotFoundForClienteWithoutValidId() {
+    public void shouldThrowFilmeNotFoundForFilmeWithoutValidId() {
         assertThatThrownBy(() -> filmeService.findById(0L))
                 .isInstanceOf(FilmeNotFoundException.class)
                 .hasMessage("id: 0");
     }
 
     @Test
-    public void shouldThrowClienteNotFoundExceptionForClienteByIdNull() {
+    public void shouldThrowFilmeNotFoundExceptionForFilmeByIdNull() {
         assertThatThrownBy(() -> filmeService.findById(null))
                 .isInstanceOf(FilmeNotFoundException.class)
                 .hasMessage("id invalido");

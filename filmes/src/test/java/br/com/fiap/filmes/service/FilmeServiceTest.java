@@ -106,14 +106,14 @@ public class FilmeServiceTest {
     }
 
     @Test
-    public void shouldFindClienteById() {
+    public void shouldFindFilmeById() {
         when(filmeRepository.findById(1L)).thenReturn(Optional.of(fil1));
         assertThat(filmeService.findById(1L)).isEqualTo(fil1);
         verify(filmeRepository, times(1)).findById(anyLong());
     }
 
     @Test
-    public void shouldThrowClienteNotFoundExceptionForClienteByIdNull() {
+    public void shouldThrowFilmeNotFoundExceptionForFilmeByIdNull() {
         assertThatExceptionOfType(FilmeNotFoundException.class)
                 .isThrownBy(() -> filmeService.findById(null)).withMessage("id invalido");
         verify(filmeRepository, times(0)).findById(null);

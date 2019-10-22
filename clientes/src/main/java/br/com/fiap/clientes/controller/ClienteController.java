@@ -16,6 +16,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+
 @RestController
 @RequestMapping("/v1/clientes")
 @Api(tags="clientes service")
@@ -69,11 +71,10 @@ public class ClienteController {
 
     @PostMapping("/{id}/chamados")
     @ApiOperation(value="abre um chamado para um cliente")
-    public ResponseEntity<Chamado> openTicketForCliente(@PathVariable final Long id, @RequestBody String chamado) {
+    public ResponseEntity<Chamado> openTicketForCliente(@PathVariable final Long id, @RequestBody String chamado)  {
         Chamado aChamado = null;
-        Cliente cliente = clienteService.findById(id);
-
         try {
+            Cliente cliente = clienteService.findById(id);
 
             aChamado = objectMapper.readValue(chamado, Chamado.class);
             aChamado.setDataAbertura(null);
@@ -82,7 +83,7 @@ public class ClienteController {
 
             aChamado = chamadoDiscoveryClient.openTicket(aChamado);
             return new ResponseEntity<Chamado>(aChamado, HttpStatus.CREATED);
-        } catch (Exception e) {
+        } catch (IOException e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }

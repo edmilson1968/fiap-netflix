@@ -31,8 +31,9 @@ public class ChamadosController {
 
     @PostMapping
     @ApiOperation(value="abrir um chamado técnico")
-    public ResponseEntity<Chamado> abrirChamado(@RequestBody String chamado) {
+    public ResponseEntity<Chamado> abrirChamado(@RequestBody String chamado) throws InterruptedException {
         Chamado aChamado = null;
+
         try {
             aChamado = objectMapper.readValue(chamado, Chamado.class);
         } catch (Exception e) {

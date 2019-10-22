@@ -1,11 +1,11 @@
 package br.com.fiap.servicos.client;
 
 import br.com.fiap.servicos.model.Cliente;
-import br.com.fiap.servicos.model.Filme;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
-import org.springframework.context.annotation.Bean;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
@@ -21,6 +21,22 @@ public class ClienteDiscoveryClient {
     @Autowired
     RestTemplate restTemplate;
 
+    @HystrixCommand
+    public Cliente fallback(long clienteId) {
+        return new Cliente(clienteId, "falback Cliente - Fiap1DVP", "2019", 2019);
+    }
+
+    @HystrixCommand(fallbackMethod = "fallback", commandProperties = {
+            @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "500")
+            },
+            threadPoolProperties = {
+                    @HystrixProperty(name = "coreSize", value = "30"),
+                    @HystrixProperty(name = "maxQueueSize", value = "101"),
+                    @HystrixProperty(name = "keepAliveTimeMinutes", value = "2"),
+                    @HystrixProperty(name = "queueSizeRejectionThreshold", value = "15"),
+                    @HystrixProperty(name = "metrics.rollingStats.numBuckets", value = "12"),
+                    @HystrixProperty(name = "metrics.rollingStats.timeInMilliseconds", value = "1440")
+            })
     public Cliente findClienteById(long clienteId) {
         List<ServiceInstance> instances = discoveryClient.getInstances("clientes");
 

@@ -31,7 +31,7 @@ zuul:
       serviceId: filmes
     filmes:
       strip-prefix: false
-      path: /v1/filmes**
+      path: /v1/filmes/**
       serviceId: filmes
     # routes for service 'servicos'
     servicos-api-docs:

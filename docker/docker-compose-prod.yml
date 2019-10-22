@@ -9,11 +9,23 @@ services:
     command: --default-authentication-plugin=mysql_native_password
     ports:
       - "3306:3306"
+    volumes:
+      - $PWD/data:/var/lib/mysql
     environment:
-      MYSQL_ROOT_PASSWORD: rootpass
-      MYSQL_USER: netflixusr
-      MYSQL_PASSWORD: netflix123
-      MYSQL_DATABASE: netflix
+        MYSQL_ROOT_PASSWORD: rootpass
+        MYSQL_USER: netflixusr
+        MYSQL_PASSWORD: netflix123
+        MYSQL_DATABASE: netflix
+
+  # --------------
+  # phpadmin
+  # --------------
+  phpadmin:
+    image: phpmyadmin/phpmyadmin
+    links:
+      - mysql:db
+    ports:
+      - "8081:80"
 
   # --------------
   # rabbitmq
@@ -26,8 +38,8 @@ services:
       - "25672"
     hostname: rabbitmq
     environment:
-      - RABBITMQ_DEFAULT_USER=netflixusr
-      - RABBITMQ_DEFAULT_PASS=netflix123
+        RABBITMQ_DEFAULT_USER: netflixusr
+        RABBITMQ_DEFAULT_PASS: netflix123
 
   # --------------
   # registry
@@ -36,8 +48,9 @@ services:
     image: 1tiquinho/startupone:discovery1.0
     ports:
       - "8761:8761"
+    hostname: discovery
     environment:
-      - SPRING_PROFILES_ACTIVE=docker
+        SPRING_PROFILES_ACTIVE: docker
 
   # --------------
   # zuul proxy
@@ -46,10 +59,11 @@ services:
     image: 1tiquinho/startupone:zuul2.0
     ports:
       - "80:8080"
+    hostname: zuul
     links:
       - discovery
     environment:
-      - SPRING_PROFILES_ACTIVE=docker
+        SPRING_PROFILES_ACTIVE: docker
 
   # --------------
   # clientes
@@ -58,11 +72,19 @@ services:
     image: 1tiquinho/startupone:clientes2.0
     ports:
       - "8080"
+    hostname: clientes
     links:
       - discovery
       - rabbitmq
     environment:
-      - SPRING_PROFILES_ACTIVE=docker
+        SPRING_PROFILES_ACTIVE: docker
+        MYSQL_URL: "jdbc:mysql://mysql:3306/netflix"
+        MYSQL_USER: netflixusr
+        MYSQL_PASS: netflix123
+        RABBITMQ_HOST: rabbitmq
+        RABBITMQ_PORT: 5672
+        RABBITMQ_USERNAME: netflixusr
+        RABBITMQ_PASSWORD: netflix123
 
   # --------------
   # filmes
@@ -71,11 +93,19 @@ services:
     image: 1tiquinho/startupone:filmes2.0
     ports:
       - "8080"
+    hostname: filmes
     links:
       - discovery
       - rabbitmq
     environment:
-      - SPRING_PROFILES_ACTIVE=docker
+        SPRING_PROFILES_ACTIVE: docker
+        MYSQL_URL: "jdbc:mysql://mysql:3306/netflix"
+        MYSQL_USER: netflixusr
+        MYSQL_PASS: netflix123
+        RABBITMQ_HOST: rabbitmq
+        RABBITMQ_PORT: 5672
+        RABBITMQ_USERNAME: netflixusr
+        RABBITMQ_PASSWORD: netflix123
 
   # --------------
   # servicos
@@ -84,9 +114,17 @@ services:
     image: 1tiquinho/startupone:servicos1.0
     ports:
       - "8080"
+    hostname: servicos
     links:
       - discovery
       - rabbitmq
     environment:
-      - SPRING_PROFILES_ACTIVE=docker
+        SPRING_PROFILES_ACTIVE: docker
+        MYSQL_URL: "jdbc:mysql://mysql:3306/netflix"
+        MYSQL_USER: netflixusr
+        MYSQL_PASS: netflix123
+        RABBITMQ_HOST: rabbitmq
+        RABBITMQ_PORT: 5672
+        RABBITMQ_USERNAME: netflixusr
+        RABBITMQ_PASSWORD: netflix123
 
