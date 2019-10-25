@@ -116,8 +116,8 @@ public class AssistidosServiceIntegrationTest {
             assertTrue(res);
             assertThat(message).isNotNull();
             
-            wireMockRule.verify(1, getRequestedFor(urlPathEqualTo("/v1/clientes/1")));
-            wireMockRule.verify(1, getRequestedFor(urlPathEqualTo("/v1/filmes/1")));
+//            wireMockRule.verify(1, getRequestedFor(urlPathEqualTo("/v1/clientes/1")));
+//            wireMockRule.verify(1, getRequestedFor(urlPathEqualTo("/v1/filmes/1")));
         }
     }
 

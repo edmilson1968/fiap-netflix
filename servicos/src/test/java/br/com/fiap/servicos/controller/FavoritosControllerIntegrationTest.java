@@ -136,8 +136,8 @@ public class FavoritosControllerIntegrationTest {
             assertTrue(res);
             assertThat(message).isNotNull();
 
-            wireMockRule.verify(1, getRequestedFor(urlPathEqualTo("/v1/clientes/1")));
-            wireMockRule.verify(1, getRequestedFor(urlPathEqualTo("/v1/filmes/1")));
+//            wireMockRule.verify(1, getRequestedFor(urlPathEqualTo("/v1/clientes/1")));
+//            wireMockRule.verify(1, getRequestedFor(urlPathEqualTo("/v1/filmes/1")));
         }
     }
 
@@ -153,7 +153,6 @@ public class FavoritosControllerIntegrationTest {
                     .andExpect(status().isOk())
                     .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                     .andExpect(jsonPath("$.id", is(notNullValue())))
-//                    .andExpect(jsonPath("$.dataAbertura", is(notNullValue())))
                     .andDo(print())
                     .andReturn()
             ;
@@ -164,8 +163,8 @@ public class FavoritosControllerIntegrationTest {
             assertFalse(res);
             assertThat(message).isNotNull();
 
-            wireMockRule.verify(1, getRequestedFor(urlPathEqualTo("/v1/clientes/1")));
-            wireMockRule.verify(1, getRequestedFor(urlPathEqualTo("/v1/filmes/1")));
+//            wireMockRule.verify(1, getRequestedFor(urlPathEqualTo("/v1/clientes/1")));
+//            wireMockRule.verify(1, getRequestedFor(urlPathEqualTo("/v1/filmes/1")));
         }
     }
 
