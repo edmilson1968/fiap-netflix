@@ -19,11 +19,6 @@ import java.util.List;
 public class ChamadoDiscoveryClient {
 
 
-    @Bean
-    public RestTemplate restTemplate() {
-        return new RestTemplate();
-    }
-
     @Autowired
     private DiscoveryClient discoveryClient;
 
