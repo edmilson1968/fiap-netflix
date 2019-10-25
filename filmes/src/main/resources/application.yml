@@ -7,13 +7,19 @@ spring:
     profiles.active: local
     application.name: filmes
 
-eureka.instance:
-    # send ip addresses to the discovery. this is
-    # important for client side load balancing
-    preferIpAddress: true
-    # push this service all 10 seconds to the registry
-    leaseRenewalIntervalInSeconds: 10
-    metadataMap.instanceId: ${vcap.application.instance_id:${spring.application.name}:${spring.application.instance_id:${server.port}}}
+eureka:
+    client:
+        serviceUrl:
+            defaultZone: http://discovery:8761/eureka/
+    instance:
+        # send ip addresses to the discovery. this is
+        # important for client side load balancing
+        preferIpAddress: true
+        # push this service all 10 seconds to the registry
+        leaseRenewalIntervalInSeconds: 10
+        metadataMap:
+            instanceId: ${vcap.application.instance_id:${spring.application.name}:${spring.application.instance_id:${server.port}}}
+    status-page-url: http://localhost:8080/swagger-ui.html
 
 fanout.exchange:
     name: amq.fanout
@@ -41,9 +47,6 @@ spring:
 # inside a container, we can always map to 8080. Use your compose
 # file to expose a service on a different port.
 server.port: 8080
-
-# the hostname of your eureka server should be 'discovery'.
-eureka.client.serviceUrl.defaultZone: http://discovery:8761/eureka/
 
 ---
 # LOCAL CONFIGURATION

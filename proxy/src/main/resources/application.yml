@@ -12,22 +12,24 @@ server.port: 8080
 
 # zuul routes
 zuul:
+  host:
+    connect-timeout-millis: 10000
+    socket-timeout-millis: 10000
   ignoredServices: '*'
   prefix: /api
   routes:
-    # routes for service 'clientes'
     clientes-api-docs:
       strip-prefix: true
-      path: /apidocs/v1/clientes/**
+      path: /clientes/**
       serviceId: clientes
-    clientes-v1:
+    clientes:
       strip-prefix: false
       path: /v1/clientes/**
       serviceId: clientes
     # routes for service 'filmes'
     filmes-api-docs:
       strip-prefix: true
-      path: /apidocs/v1/filmes/**
+      path: /filmes/**
       serviceId: filmes
     filmes:
       strip-prefix: false
@@ -36,23 +38,11 @@ zuul:
     # routes for service 'servicos'
     servicos-api-docs:
       strip-prefix: true
-      path: /apidocs/v1/**
+      path: /servicos/**
       serviceId: servicos
     servicos:
       strip-prefix: false
-      path: /v1/chamados/**
-      serviceId: servicos
-    likes:
-      strip-prefix: false
-      path: /v1/likes/**
-      serviceId: servicos
-    assistidos:
-      strip-prefix: false
-      path: /v1/assistidos/**
-      serviceId: servicos
-    favoritos:
-      strip-prefix: false
-      path: /v1/favoritos/**
+      path: /v1/servicos/**
       serviceId: servicos
 
 ---
@@ -61,23 +51,30 @@ spring:
     profiles: local
       
       
-eureka.client:
+eureka:
+  client:
     # in local mode you have to run your service 
     # discovery on localhost (you also can run the 
     # cloud infrastructure on your local docker host)
-    serviceUrl.defaultZone: http://localhost:8761/eureka/
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
     # fetch all 5 seconds the delta from the service registry
     registry-fetch-interval-seconds: 5
-      
+    instance:
+      status-page-url: http://localhost:8080/swagger-ui.html
+
 ---
 # DOCKER CONFIGURATION
 spring:
     profiles: docker
     
 
-eureka.client:
+eureka:
+  client:
     # the hostname of your eureka server should be 'discovery'
     serviceUrl.defaultZone: http://discovery:8761/eureka/
     # fetch all 5 seconds the delta from the service registry
     registry-fetch-interval-seconds: 5
+  instance:
+    status-page-url: http://localhost:8080/swagger-ui.html
 

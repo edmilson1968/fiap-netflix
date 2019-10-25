@@ -9,11 +9,12 @@ spring:
     application.name: discovery
 
 # don't register with your self
-eureka.client:
+eureka:
+  client:
     registerWithEureka: false
     fetchRegistry: false
 
-  
+
 ---
 # LOCAL CONFIGURATION
 spring:

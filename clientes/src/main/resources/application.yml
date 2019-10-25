@@ -7,13 +7,19 @@ spring:
     profiles.active: local
     application.name: clientes
 
-eureka.instance:
-    # send ip addresses to the discovery. this is
-    # important for client side load balancing
-    preferIpAddress: true
-    # push this service all 10 seconds to the registry
-    leaseRenewalIntervalInSeconds: 10
-    metadataMap.instanceId: ${vcap.application.instance_id:${spring.application.name}:${spring.application.instance_id:${server.port}}}
+eureka:
+    client:
+        serviceUrl:
+            defaultZone: http://discovery:8761/eureka/
+    instance:
+        # send ip addresses to the discovery. this is
+        # important for client side load balancing
+        preferIpAddress: true
+        # push this service all 10 seconds to the registry
+        leaseRenewalIntervalInSeconds: 10
+        metadataMap:
+            instanceId: ${vcap.application.instance_id:${spring.application.name}:${spring.application.instance_id:${server.port}}}
+        status-page-url: http://localhost:8080/swagger-ui.html
 
 fanout.exchange:
     name: amq.fanout
@@ -42,8 +48,6 @@ spring:
 # file to expose a service on a different port.
 server.port: 8080
 
-# the hostname of your eureka server should be 'discovery'.
-eureka.client.serviceUrl.defaultZone: http://discovery:8761/eureka/
 
 ---
 # LOCAL CONFIGURATION
@@ -70,11 +74,14 @@ spring:
 # conflicts on localhost
 server.port: 0
 
-eureka.client:
-    # in local mode you have to run your service 
-    # discovery on localhost (you also can run the 
-    # cloud infrastructure on your local docker host)
-    serviceUrl.defaultZone: http://localhost:8761/eureka/
-    # fetch all 5 seconds the delta from the service registry
-    registry-fetch-interval-seconds: 5
+eureka:
+    client:
+        # in local mode you have to run your service
+        # discovery on localhost (you also can run the
+        # cloud infrastructure on your local docker host)
+        serviceUrl.defaultZone: http://localhost:8761/eureka/
+        # fetch all 5 seconds the delta from the service registry
+        registry-fetch-interval-seconds: 5
+    instance:
+        status-page-url: http://localhost:8080/swagger-ui.html
 
