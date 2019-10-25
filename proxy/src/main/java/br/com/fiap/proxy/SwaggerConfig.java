@@ -6,8 +6,10 @@ import org.springframework.cloud.netflix.zuul.filters.discovery.PatternServiceRo
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.service.ApiInfo;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger.web.SwaggerResource;
@@ -35,10 +37,20 @@ public class SwaggerConfig implements SwaggerResourcesProvider {
     @Bean
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
-                .select()
-                .apis(RequestHandlerSelectors.any())
-                .paths(PathSelectors.any()).build().pathMapping("/")
+                .apiInfo(apiInfo())
+//                .select()
+//                .apis(RequestHandlerSelectors.any())
+//                .paths(PathSelectors.any()).build().pathMapping("/")
                 ;
+    }
+
+    private ApiInfo apiInfo() {
+        return new ApiInfoBuilder()
+                .title("Microservices Netflix - Fiap 2019 - 1DVP")
+                .description("Sistema de microsserviços com casos Netflix para o curso Devops, Fiap 2019 - 1DVP")
+                .termsOfServiceUrl("http://localhost:8081")
+                .version("1.0")
+                .build();
     }
 
     @Override
@@ -80,4 +92,15 @@ public class SwaggerConfig implements SwaggerResourcesProvider {
         swaggerResource.setSwaggerVersion(version);
         return swaggerResource;
     }
+
+//    @Override
+//    public List<SwaggerResource> get() {
+//        List resources = new ArrayList<>();
+//        resources.add(swaggerResource("clientes-api-doc", "/clientes/v2/api-docs", "1.0"));
+//        resources.add(swaggerResource("filmes-api-doc", "/filmes/v2/api-docs", "1.0"));
+//        resources.add(swaggerResource("servicos-api-doc", "/servicos/v2/api-docs", "1.0"));
+//        return resources;
+//    }
+
+
 }
