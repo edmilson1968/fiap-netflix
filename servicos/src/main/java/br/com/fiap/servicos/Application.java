@@ -10,11 +10,17 @@ import org.springframework.cloud.netflix.hystrix.EnableHystrix;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/*
+ * Fiap 1DVP - 2019 / MICROSERVICES ARCHITECTURE / API / CONTAINERS / TADEU D’ALESSANDRO BARBOSA
+ * RM 333328 - EDMILSON FIGUEIREDO
+ * RM 334231 - BRUNO MARQUES DOS SANTOS PANASIO
+ * RM 334014 - RODRIGO BARBOZA GONÇALVES
+ * RM 334401 - RICARDO AMARAL CAEIRO
+ * */
 @SpringBootApplication
 @RestController
 @EnableEurekaClient
@@ -31,11 +37,6 @@ public class Application {
     public String hello() {
         LOG.log(Level.INFO, "requested Service 'servicos'");
         return "Hello from service 'servicos'.";
-    }
-
-    @Bean
-    public RestTemplate restTemplate() {
-        return new RestTemplate();
     }
 
     @Bean

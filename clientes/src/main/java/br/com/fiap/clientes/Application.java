@@ -16,6 +16,14 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+
+/*
+* Fiap 1DVP - 2019 / MICROSERVICES ARCHITECTURE / API / CONTAINERS / TADEU D’ALESSANDRO BARBOSA
+* RM 333328 - EDMILSON FIGUEIREDO
+* RM 334231 - BRUNO MARQUES DOS SANTOS PANASIO
+* RM 334014 - RODRIGO BARBOZA GONÇALVES
+* RM 334401 - RICARDO AMARAL CAEIRO
+* */
 @SpringBootApplication
 @RestController
 @EnableEurekaClient
