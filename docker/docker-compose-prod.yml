@@ -45,7 +45,7 @@ services:
   # registry
   # --------------
   discovery:
-    image: 1tiquinho/startupone:discovery1.0
+    image: 1tiquinho/startupone:discovery2.0
     ports:
       - "8761:8761"
     hostname: discovery
@@ -56,7 +56,7 @@ services:
   # zuul proxy
   # --------------
   zuul:
-    image: 1tiquinho/startupone:zuul2.0
+    image: 1tiquinho/startupone:zuul4.0
     ports:
       - "80:8080"
     hostname: zuul
@@ -69,7 +69,7 @@ services:
   # clientes
   # --------------
   clientes:
-    image: 1tiquinho/startupone:clientes2.0
+    image: 1tiquinho/startupone:clientes4.0
     ports:
       - "8080"
     hostname: clientes
@@ -90,7 +90,7 @@ services:
   # filmes
   # --------------
   filmes:
-    image: 1tiquinho/startupone:filmes2.0
+    image: 1tiquinho/startupone:filmes4.0
     ports:
       - "8080"
     hostname: filmes
@@ -111,7 +111,7 @@ services:
   # servicos
   # --------------
   servicos:
-    image: 1tiquinho/startupone:servicos1.0
+    image: 1tiquinho/startupone:servicos4.0
     ports:
       - "8080"
     hostname: servicos
